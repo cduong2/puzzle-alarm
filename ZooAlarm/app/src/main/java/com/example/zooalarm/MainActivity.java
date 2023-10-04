@@ -2,6 +2,7 @@ package com.example.zooalarm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
@@ -19,16 +20,14 @@ public class MainActivity extends AppCompatActivity {
         mWeatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
-                        R.string.weather_toast, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, WeatherActivity.class));
             }
         });
         mAlarmButton = (Button) findViewById(R.id.alarm_button);
         mAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
-                        R.string.alarm_toast, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, AlarmCreateActivity.class));
             }
         });
     }

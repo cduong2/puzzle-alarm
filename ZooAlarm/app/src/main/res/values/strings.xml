@@ -5,4 +5,8 @@
     <string name="alarm_button">Alarm</string>
     <string name="weather_toast">Clicked Weather!</string>
     <string name="alarm_toast">Clicked Alarm!</string>
+    <string name="home_button">Back</string>
+    <string name="weather_welcome">Weather</string>
+    <string name="alarm_welcome">Set Alarm</string>
+
 </resources>
