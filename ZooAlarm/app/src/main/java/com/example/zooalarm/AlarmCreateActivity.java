@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class AlarmCreateActivity extends AppCompatActivity {
     private Button mBackButton;
@@ -15,13 +17,12 @@ public class AlarmCreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
-        mBackButton = (Button) findViewById(R.id.home_button);
-        mBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(AlarmCreateActivity.this, MainActivity.class));
-                }
-            });
-
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        if (fragment == null) {
+            fragment = new AlarmFragment();
+            fm.beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .commit(); }
     }
 }
