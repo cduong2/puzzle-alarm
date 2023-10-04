@@ -3,4 +3,6 @@
     <string name="question_text">Welcome to Zoo Alarm</string>
     <string name="weather_button">Weather</string>
     <string name="alarm_button">Alarm</string>
+    <string name="weather_toast">Clicked Weather!</string>
+    <string name="alarm_toast">Clicked Alarm!</string>
 </resources>
