@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,6 +50,7 @@ public class AlarmFragment extends Fragment {
         mDayCheckboxes.add((CheckBox) v.findViewById(R.id.is_sat));
         mDayCheckboxes.add((CheckBox) v.findViewById(R.id.is_sun));
 
+
         // Set up listeners for day checkboxes
         for (CheckBox checkBox : mDayCheckboxes) {
             if (checkBox != null) { // Check for null
@@ -56,7 +58,8 @@ public class AlarmFragment extends Fragment {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if (mAlarm != null) { // Check for null
-                            mAlarm.updateDays(checkBox.getText().toString());
+                           // mAlarm.updateDays(checkBox.getText().toString());
+                            Toast.makeText(getActivity(), checkBox.getText().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
