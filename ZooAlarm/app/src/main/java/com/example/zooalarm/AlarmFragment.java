@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class AlarmFragment extends Fragment {
     private List<CheckBox> mDayCheckboxes;
     private RadioGroup mActivityRadioGroup;
     private Button mBackButton;
+    private static final String TAG = "AlarmFragment";
 
 
     @Override
@@ -39,6 +41,7 @@ public class AlarmFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_alarm, container, false);
+        Log.d(TAG, "onCreateView: Fragment view is being created.");
         mAlarmField = v.findViewById(R.id.alarm_time);
 
         mDayCheckboxes = new ArrayList<>();
