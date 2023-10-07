@@ -1,10 +1,17 @@
 # puzzle-alarm
 to-do
-- weather api: kelly
+- flashcard implementation: kelly
+  - different screens for wordle/flashcards
+  - check out geoQuiz example in textbook
 - alarm form: christina
-- notification: christina
+- notifications: christina
+- weather api: kelly
 
-october 20:
-- persistent data
+later: 
+- firebase (persistent data) (10/20)
 - wordle implementation
-- flashcard implementation
+- import sounds
+- make it nice looking
+
+- beginning to end app due 11/13
+
