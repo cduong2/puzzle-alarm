@@ -61,7 +61,7 @@ public class AlarmFragment extends Fragment {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if (mAlarm != null) { // Check for null
-                           // mAlarm.updateDays(checkBox.getText().toString());
+                           mAlarm.updateDays(checkBox.getText().toString());
                             Toast.makeText(getActivity(), checkBox.getText().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
