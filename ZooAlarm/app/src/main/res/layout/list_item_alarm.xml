@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+    <TextView
+        android:id="@+id/alarm_title"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Alarm Title"/>
+    <TextView
+        android:id="@+id/alarm_activity"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Alarm Activity"/>
+
+</LinearLayout>

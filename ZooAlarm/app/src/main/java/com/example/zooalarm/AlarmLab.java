@@ -16,7 +16,14 @@ public class AlarmLab {
         return sAlarmLab;
     }
     private AlarmLab(Context context){
+
         mAlarms = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Alarm alarm = new Alarm();
+            alarm.setActivity("Flashcards");
+            alarm.setTime("8:0"+i+" AM");
+            mAlarms.add(alarm);
+        }
     }
     public void addAlarm(Alarm a){
         mAlarms.add(a);
