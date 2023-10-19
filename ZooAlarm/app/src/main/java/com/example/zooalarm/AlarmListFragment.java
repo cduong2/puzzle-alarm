@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,7 +43,7 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         mAdapter = new AlarmAdapter(alarms);
         mAlarmRecyclerView.setAdapter(mAdapter);
     }
-    private class AlarmHolder extends RecyclerView.ViewHolder {
+    private class AlarmHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTimeTextView;
         private TextView mActivityTextView;
         private Alarm mAlarm;
@@ -53,9 +54,17 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         }
         public AlarmHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_alarm, parent, false));
+            itemView.setOnClickListener(this);
             mTimeTextView = (TextView) itemView.findViewById(R.id.alarm_title);
             mActivityTextView = (TextView) itemView.findViewById(R.id.alarm_activity);
-        } }
+        }
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(getActivity(),
+                            mAlarm.getTime() + " clicked!", Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
 
 
     @Override
