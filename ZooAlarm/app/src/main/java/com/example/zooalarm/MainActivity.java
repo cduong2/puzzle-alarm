@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, WeatherActivity.class));
 
         }else if(viewId==R.id.alarm_button){
-            startActivity(new Intent(this, AlarmCreateActivity.class));
+            startActivity(new Intent(this, AlarmListActivity.class));
 
         }
     }
