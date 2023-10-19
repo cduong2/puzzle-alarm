@@ -21,40 +21,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
     <CheckBox
-        android:id="@+id/is_mon"
+        android:id="@+id/is_repeat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mo"/>
-    <CheckBox
-        android:id="@+id/is_tue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tu"/>
-        <CheckBox
-            android:id="@+id/is_wed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="We"/>
-        <CheckBox
-            android:id="@+id/is_thr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Th"/>
-        <CheckBox
-            android:id="@+id/is_fri"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fr"/>
-        <CheckBox
-            android:id="@+id/is_sat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sa"/>
-        <CheckBox
-            android:id="@+id/is_sun"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Su"/>
+        android:text="Repeat"/>
+
     </LinearLayout>
     <TextView
         style="?android:listSeparatorTextViewStyle"

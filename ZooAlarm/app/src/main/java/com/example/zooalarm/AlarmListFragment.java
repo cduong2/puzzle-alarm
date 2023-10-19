@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AlarmListFragment extends Fragment implements View.OnClickListener{
@@ -37,11 +39,27 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         return view;
 
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
     private void updateUI() {
         AlarmLab alarmLab = AlarmLab.get(getActivity());
         List<Alarm> alarms = alarmLab.getAlarms();
-        mAdapter = new AlarmAdapter(alarms);
-        mAlarmRecyclerView.setAdapter(mAdapter);
+        Collections.sort(alarms, new Comparator<Alarm>() {
+            @Override
+            public int compare(Alarm alarm1, Alarm alarm2) {
+                // Assuming getTime() returns a String in HH:mm format
+                return alarm1.getTime().compareTo(alarm2.getTime());
+            }
+        });
+        if (mAdapter == null) {
+            mAdapter = new AlarmAdapter(alarms);
+            mAlarmRecyclerView.setAdapter(mAdapter);
+        }else{
+            mAdapter.notifyDataSetChanged();
+        }
     }
     private class AlarmHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTimeTextView;
@@ -60,9 +78,8 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         }
         @Override
         public void onClick(View view) {
-            Toast.makeText(getActivity(),
-                            mAlarm.getTime() + " clicked!", Toast.LENGTH_SHORT)
-                    .show();
+            Intent intent = AlarmCreateActivity.newIntent(getActivity(), mAlarm.getId());
+            startActivity(intent);
         }
     }
 

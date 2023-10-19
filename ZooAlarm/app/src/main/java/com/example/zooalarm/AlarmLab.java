@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class AlarmLab {
     private static AlarmLab sAlarmLab;
-    private List<Alarm> mAlarms;
+    public List<Alarm> mAlarms;
     public static AlarmLab get(Context context){
         if(sAlarmLab==null){
             sAlarmLab = new AlarmLab(context);
@@ -20,8 +20,14 @@ public class AlarmLab {
         mAlarms = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Alarm alarm = new Alarm();
-            alarm.setActivity("Flashcards");
+            alarm.setActivity("flashcards");
             alarm.setTime("8:0"+i+" AM");
+            if(i%2==0) {
+                alarm.setRepeat(true);
+            }else{
+                alarm.setRepeat(false);
+            }
+
             mAlarms.add(alarm);
         }
     }

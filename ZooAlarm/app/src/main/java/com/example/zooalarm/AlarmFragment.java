@@ -1,6 +1,7 @@
 package com.example.zooalarm;
 
 import android.content.Intent;
+import android.credentials.CreateCredentialException;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,20 +23,35 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AlarmFragment extends Fragment {
     private Alarm mAlarm;
     private EditText mAlarmField;
-    private List<CheckBox> mDayCheckboxes;
+    private CheckBox mRepeatCheckbox;
     private RadioGroup mActivityRadioGroup;
-    private Button mBackButton;
-    private static final String TAG = "AlarmFragment";
+    private RadioButton mFlashCards;
+    private RadioButton mPuzzle;
 
+    private Button mBackButton;
+    private Button mSubmitButton;
+    private static final String TAG = "AlarmFragment";
+    private static final String ARG_ALARM_ID = "alarm_id";
+
+    public static AlarmFragment newInstance(UUID alarmId) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_ALARM_ID, alarmId);
+        AlarmFragment fragment = new AlarmFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAlarm = new Alarm();
+        UUID alarmId = (UUID) getArguments().getSerializable(ARG_ALARM_ID);
+        mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
+
     }
 
     @Override
@@ -43,34 +59,32 @@ public class AlarmFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_alarm, container, false);
         Log.d(TAG, "onCreateView: Fragment view is being created.");
         mAlarmField = v.findViewById(R.id.alarm_time);
-
-        mDayCheckboxes = new ArrayList<>();
-        mDayCheckboxes.add((CheckBox) v.findViewById(R.id.is_mon));
-        mDayCheckboxes.add((CheckBox) v.findViewById(R.id.is_tue));
-        mDayCheckboxes.add((CheckBox) v.findViewById(R.id.is_wed));
-        mDayCheckboxes.add((CheckBox) v.findViewById(R.id.is_thr));
-        mDayCheckboxes.add((CheckBox) v.findViewById(R.id.is_fri));
-        mDayCheckboxes.add((CheckBox) v.findViewById(R.id.is_sat));
-        mDayCheckboxes.add((CheckBox) v.findViewById(R.id.is_sun));
-
-
-        // Set up listeners for day checkboxes
-        for (CheckBox checkBox : mDayCheckboxes) {
-            if (checkBox != null) { // Check for null
-                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (mAlarm != null) { // Check for null
-                           mAlarm.updateDays(checkBox.getText().toString());
-                            Toast.makeText(getActivity(), checkBox.getText().toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        }
-
-        // Initialize radio group for activity selection
+        mRepeatCheckbox= v.findViewById(R.id.is_repeat);
         mActivityRadioGroup = v.findViewById(R.id.activity_radio_group);
+        mFlashCards = v.findViewById(R.id.is_flashcards);
+        mPuzzle = v.findViewById(R.id.is_word_puzzle);
+
+
+        if (mAlarm!=null){
+            mAlarmField.setText(mAlarm.getTime());
+            mRepeatCheckbox.setChecked(mAlarm.getRepeat());
+            if (mAlarm.getActivity().equals("flashcards")){
+                mFlashCards.setChecked(true);
+            }else{
+                mPuzzle.setChecked(true);
+            }
+        }else{
+            mAlarm=new Alarm();
+        }
+        mRepeatCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                mAlarm.setRepeat(isChecked);
+            } });
+
+
+
         // Set up listener for the radio group (activity selection)
         mActivityRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -104,9 +118,20 @@ public class AlarmFragment extends Fragment {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                startActivity(new Intent(getActivity(), AlarmListActivity.class));
             }
         });
+        mSubmitButton = v.findViewById(R.id.submit_button);
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlarmLab alarmLab = AlarmLab.get(getActivity());
+                List<Alarm> alarms = alarmLab.getAlarms();
+                alarms.add(mAlarm);
+                startActivity(new Intent(getActivity(), AlarmListActivity.class));
+            }
+        });
+
 
         return v;
     }
