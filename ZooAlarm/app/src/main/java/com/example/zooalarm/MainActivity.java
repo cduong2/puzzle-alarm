@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private Button mWeatherButton;
     private Button mAlarmButton;
     private static final String TAG = "MainActivity";
@@ -20,19 +20,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_main);
         mWeatherButton = (Button) findViewById(R.id.weather_button);
-        mWeatherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, WeatherActivity.class));
-            }
-        });
+        mWeatherButton.setOnClickListener(this);
         mAlarmButton = (Button) findViewById(R.id.alarm_button);
-        mAlarmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AlarmCreateActivity.class));
-            }
-        });
+        mAlarmButton.setOnClickListener(this);
     }
     @Override
     public void onStart() {
@@ -58,5 +48,17 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
+    }
+
+    @Override
+    public void onClick(View v) {
+        final int viewId = v.getId();
+        if (viewId == R.id.weather_button){
+            startActivity(new Intent(this, WeatherActivity.class));
+
+        }else if(viewId==R.id.alarm_button){
+            startActivity(new Intent(this, AlarmCreateActivity.class));
+
+        }
     }
 }
