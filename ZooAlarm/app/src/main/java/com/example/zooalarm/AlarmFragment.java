@@ -51,7 +51,7 @@ public class AlarmFragment extends Fragment {
     AlarmDatabase alarmDB; //ciDBi
 
     // 17:41 in tutorial moved this part to AlarmActivity // lot of work to create a separate view rn since i'm cramming this thing in
-    List<Alarm> alarmList;
+    List<Alarm> alarmList;`
 
 
     @Override

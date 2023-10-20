@@ -23,9 +23,9 @@ public interface AlarmDAO {
     @Delete
     public void deleteAlarm(Alarm alarm);
 
-    @Query("select * from alarm")
+    @Query("select * from alarm") // * =? mTime, mDays, mActId
     public List<Alarm> getAllAlarm();
 
     @Query("select * from alarm where mId==:mId")
-    public Alarm getAlarm(UUID mId);
+    public Alarm getAlarm(Integer mId);
 }
