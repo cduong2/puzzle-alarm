@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zooalarm.database.Alarm;
+import com.example.zooalarm.database.AlarmRepository;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,11 +24,13 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
     private AlarmAdapter mAdapter;
     private Button mAlarmButton;
     private Button mBackButton;
+    private AlarmRepository mAlarmRepository;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_alarm_list, container, false);
+        mAlarmRepository = new AlarmRepository(getActivity().getApplication());
         mAlarmRecyclerView = (RecyclerView) view
                 .findViewById(R.id.alarm_recycler_view);
         mAlarmRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -46,21 +49,22 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         updateUI();
     }
     private void updateUI() {
-        AlarmLab alarmLab = AlarmLab.get(getActivity());
-        List<Alarm> alarms = alarmLab.getAlarms();
-        Collections.sort(alarms, new Comparator<Alarm>() {
-            @Override
-            public int compare(Alarm alarm1, Alarm alarm2) {
-                // Assuming getTime() returns a String in HH:mm format
-                return alarm1.getTime().compareTo(alarm2.getTime());
+        mAlarmRepository.getAllAlarms().observe(getViewLifecycleOwner(), alarms -> {
+            Collections.sort(alarms, new Comparator<Alarm>() {
+                @Override
+                public int compare(Alarm alarm1, Alarm alarm2) {
+                    return alarm1.getTime().compareTo(alarm2.getTime());
+                }
+            });
+
+            if (mAdapter == null) {
+                mAdapter = new AlarmAdapter(alarms);
+                mAlarmRecyclerView.setAdapter(mAdapter);
+            } else {
+                mAdapter.setAlarms(alarms);
+                mAdapter.notifyDataSetChanged();
             }
         });
-        if (mAdapter == null) {
-            mAdapter = new AlarmAdapter(alarms);
-            mAlarmRecyclerView.setAdapter(mAdapter);
-        }else{
-            mAdapter.notifyDataSetChanged();
-        }
     }
     private class AlarmHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTimeTextView;
@@ -100,6 +104,9 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
 
     private class AlarmAdapter extends RecyclerView.Adapter<AlarmHolder> {
         private List<Alarm> mAlarms;
+        public void setAlarms(List<Alarm> alarms) {
+            mAlarms = alarms;
+        }
         public AlarmAdapter(List<Alarm> alarms) {
             mAlarms = alarms;
         }

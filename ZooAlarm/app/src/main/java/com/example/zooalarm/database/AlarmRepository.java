@@ -1,6 +1,7 @@
 package com.example.zooalarm.database;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -18,12 +19,14 @@ public class AlarmRepository {
     public AlarmRepository(Application application) {
         AlarmRoomDatabase db = AlarmRoomDatabase.getDatabase(application);
         mAlarmDao = db.alarmDao();
-        mAllAlarms = mAlarmDao.getAlarms();
+        mAllAlarms = mAlarmDao.getAllAlarms();
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     public LiveData<List<Alarm>> getAllAlarms() {
+
+        Log.d("Database", "Alarms: " + mAllAlarms.toString());
         return mAllAlarms;
     }
 
