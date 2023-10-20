@@ -135,7 +135,7 @@ public class AlarmFragment extends Fragment {
         });
 
         mDeleteButton = v.findViewById(R.id.delete_button);
-        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlarmLab alarmLab = AlarmLab.get(getActivity());
