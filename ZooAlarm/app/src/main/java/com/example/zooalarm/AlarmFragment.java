@@ -14,9 +14,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zooalarm.database.Alarm;
 
@@ -46,13 +51,34 @@ public class AlarmFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        UUID alarmId = (UUID) getArguments().getSerializable(ARG_ALARM_ID);
-        mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
-
-    }
+    private AlarmViewModel alarmViewModel;
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) { // moving this to the onCreateView method
+//        super.onCreate(savedInstanceState);
+//        UUID alarmId = (UUID) getArguments().getSerializable(ARG_ALARM_ID);
+//        mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
+//
+//        RecyclerView recyclerView = findViewById(R.id.alarm_recycler_view);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setHasFixedSize(true);
+//
+//        final AlarmAdapter adapter = new AlarmAdapter();
+//        recyclerView.setAdapter(adapter);
+//
+////        alarmViewModel = ViewModelProvider.of(this).get(AlarmViewModel.class);
+////        alarmViewModel = ViewModelProviders(this).get(AlarmViewModel.class);
+//        alarmViewModel = new ViewModelProvider(this).get(AlarmViewModel.class);
+//        alarmViewModel.getAllWords().observe(this, new Observer<List<Alarm>>() {
+//            @Override
+//            public void onChanged(List<Alarm> alarms) {
+//                //update RecyclerView
+//                //can delete this line
+//                Toast.makeText(getActivity(), "onChanged !!", Toast.LENGTH_SHORT).show();
+//                //actual
+//                adapter.setAlarms(alarms);
+//            }
+//        });
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

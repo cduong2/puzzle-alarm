@@ -20,10 +20,10 @@ public interface AlarmDao {
     void insert(Alarm alarm);
 
     @Update
-    void updateAlarm(Alarm alarm);
+    void updateAlarm(Alarm alarm); // updateAlarm
 
     @Delete
-    void deleteAlarm(Alarm alarm);
+    void deleteAlarm(Alarm alarm); // deleteAlarm
 
     @Query("DELETE FROM alarm_table")
     void deleteAll();
