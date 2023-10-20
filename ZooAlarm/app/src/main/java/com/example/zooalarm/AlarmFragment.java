@@ -1,7 +1,6 @@
 package com.example.zooalarm;
 
 import android.content.Intent;
-import android.credentials.CreateCredentialException;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,13 +14,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.util.ArrayList;
+import com.example.zooalarm.database.Alarm;
+
 import java.util.List;
 import java.util.UUID;
 

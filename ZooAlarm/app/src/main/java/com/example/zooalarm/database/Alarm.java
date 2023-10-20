@@ -1,4 +1,4 @@
-package com.example.zooalarm;
+package com.example.zooalarm.database;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -8,10 +8,12 @@ import java.sql.Time;
 import java.util.List;
 import java.util.UUID;
 
-@Entity(tableName = "Alarm")
+@Entity(tableName = "alarm_table")
 public class Alarm {
-    @ColumnInfo(name="mId")
+    @ColumnInfo(name="id")
     @PrimaryKey(autoGenerate = true)
+    private int id;
+    @ColumnInfo(name="mId")
     private UUID mId;
     @ColumnInfo(name = "mRepeat")
     private Boolean mRepeat;

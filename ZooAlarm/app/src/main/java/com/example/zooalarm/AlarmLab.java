@@ -2,6 +2,8 @@ package com.example.zooalarm;
 
 import android.content.Context;
 
+import com.example.zooalarm.database.Alarm;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
