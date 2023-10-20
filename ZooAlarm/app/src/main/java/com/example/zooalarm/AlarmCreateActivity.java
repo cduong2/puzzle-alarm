@@ -19,7 +19,7 @@ public class AlarmCreateActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
-            fragment = new AlarmFragment();
+            fragment = new AlarmFragment(this);
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit(); }
