@@ -35,6 +35,8 @@ public class AlarmFragment extends Fragment {
 
     private Button mBackButton;
     private Button mSubmitButton;
+    private Button mDeleteButton;
+
     private static final String TAG = "AlarmFragment";
     private static final String ARG_ALARM_ID = "alarm_id";
 
@@ -128,6 +130,17 @@ public class AlarmFragment extends Fragment {
                 AlarmLab alarmLab = AlarmLab.get(getActivity());
                 List<Alarm> alarms = alarmLab.getAlarms();
                 alarms.add(mAlarm);
+                startActivity(new Intent(getActivity(), AlarmListActivity.class));
+            }
+        });
+
+        mDeleteButton = v.findViewById(R.id.delete_button);
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlarmLab alarmLab = AlarmLab.get(getActivity());
+                List<Alarm> alarms = alarmLab.getAlarms();
+                alarms.remove(mAlarm);
                 startActivity(new Intent(getActivity(), AlarmListActivity.class));
             }
         });
