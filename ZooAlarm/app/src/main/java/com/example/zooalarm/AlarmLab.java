@@ -22,7 +22,7 @@ public class AlarmLab {
         mAlarms = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Alarm alarm = new Alarm();
-            alarm.setActivity("flashcards");
+            alarm.setActId("flashcards");
             alarm.setTime("8:0"+i+" AM");
             if(i%2==0) {
                 alarm.setRepeat(true);
@@ -41,7 +41,7 @@ public class AlarmLab {
     }
     public Alarm getAlarm(UUID id){
         for (Alarm alarm: mAlarms){
-            if (alarm.getId().equals(id)){
+            if (alarm.getUuid().equals(id)){
                 return alarm;
             }
         }

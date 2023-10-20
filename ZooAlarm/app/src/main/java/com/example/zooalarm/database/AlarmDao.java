@@ -1,5 +1,6 @@
 package com.example.zooalarm.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -28,6 +29,6 @@ public interface AlarmDao {
     void deleteAll();
 
     @Query("SELECT * FROM alarm_table")
-    List<Alarm> getAlphabetizedWords();
+    LiveData<List<Alarm>> getAlarms();
 
 }

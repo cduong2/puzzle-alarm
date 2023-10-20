@@ -69,7 +69,7 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         public void bind(Alarm alarm) {
             mAlarm = alarm;
             mTimeTextView.setText(mAlarm.getTime());
-            mActivityTextView.setText(mAlarm.getActivity());
+            mActivityTextView.setText(mAlarm.getActId());
         }
         public AlarmHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_alarm, parent, false));
@@ -79,7 +79,7 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         }
         @Override
         public void onClick(View view) {
-            Intent intent = AlarmCreateActivity.newIntent(getActivity(), mAlarm.getId());
+            Intent intent = AlarmCreateActivity.newIntent(getActivity(), mAlarm.getUuid());
             startActivity(intent);
         }
     }

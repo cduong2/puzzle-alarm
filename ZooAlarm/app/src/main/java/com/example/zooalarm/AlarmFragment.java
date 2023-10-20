@@ -68,7 +68,7 @@ public class AlarmFragment extends Fragment {
         if (mAlarm!=null){
             mAlarmField.setText(mAlarm.getTime());
             mRepeatCheckbox.setChecked(mAlarm.getRepeat());
-            if (mAlarm.getActivity().equals("flashcards")){
+            if (mAlarm.getActId().equals("flashcards")){
                 mFlashCards.setChecked(true);
             }else{
                 mPuzzle.setChecked(true);
@@ -90,9 +90,9 @@ public class AlarmFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.is_flashcards) {
-                    mAlarm.setActivity("Flashcards");
+                    mAlarm.setActId("Flashcards");
                 } else if (checkedId == R.id.is_word_puzzle) {
-                    mAlarm.setActivity("Word Puzzle");
+                    mAlarm.setActId("Word Puzzle");
                 }
             }
         });

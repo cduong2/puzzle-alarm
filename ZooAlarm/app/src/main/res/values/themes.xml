@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.ZooAlarm" parent="Base.Theme.ZooAlarm" />
+    <style name="Button.Red" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/red</item>
+    </style>
+
 </resources>

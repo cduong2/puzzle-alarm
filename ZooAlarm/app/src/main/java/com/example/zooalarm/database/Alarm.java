@@ -14,7 +14,7 @@ public class Alarm {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name="mId")
-    private UUID mId;
+    private UUID mUuid;
     @ColumnInfo(name = "mRepeat")
     private Boolean mRepeat;
     @ColumnInfo(name = "mOn")
@@ -24,11 +24,17 @@ public class Alarm {
     @ColumnInfo(name = "mActId")
     private String mActId;
     public Alarm(){
-        mId = UUID.randomUUID();
+        mUuid = UUID.randomUUID();
 
     }
-    public UUID getId(){
-        return mId;
+    public void setId(Integer i){
+        id = i;
+    }
+    public Integer getId(){
+        return id;
+    }
+    public UUID getUuid(){
+        return mUuid;
     }
     public String getTime(){
         return mTime;
@@ -39,8 +45,13 @@ public class Alarm {
     public Boolean getOn(){
         return mOn;
     }
+    public String getActId(){
+        return mActId;
+    }
 
-
+    public void setUuid(UUID id){
+        mUuid=id;
+    }
     public void setTime(String time){
         mTime = time;
     }
@@ -51,10 +62,7 @@ public class Alarm {
         mOn = on;
     }
 
-    public String getActivity(){
-        return mActId;
-    }
-    public void setActivity(String actId){
+    public void setActId(String actId){
         mActId=actId;
     }
 }
