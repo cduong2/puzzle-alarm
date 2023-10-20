@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.zooalarm.database.Alarm;
+import com.example.zooalarm.database.AlarmRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +35,7 @@ public class AlarmFragment extends Fragment {
     private Button mBackButton;
     private Button mSubmitButton;
     private Button mDeleteButton;
+    private AlarmRepository mAlarmRepository;
 
     private static final String TAG = "AlarmFragment";
     private static final String ARG_ALARM_ID = "alarm_id";
@@ -48,6 +50,8 @@ public class AlarmFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        mAlarmRepository = new AlarmRepository(getActivity().getApplication());
+
         super.onCreate(savedInstanceState);
         UUID alarmId = (UUID) getArguments().getSerializable(ARG_ALARM_ID);
         mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
@@ -125,9 +129,7 @@ public class AlarmFragment extends Fragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlarmLab alarmLab = AlarmLab.get(getActivity());
-                List<Alarm> alarms = alarmLab.getAlarms();
-                alarms.add(mAlarm);
+                mAlarmRepository.insert(mAlarm);
                 startActivity(new Intent(getActivity(), AlarmListActivity.class));
             }
         });
@@ -136,9 +138,7 @@ public class AlarmFragment extends Fragment {
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlarmLab alarmLab = AlarmLab.get(getActivity());
-                List<Alarm> alarms = alarmLab.getAlarms();
-                alarms.remove(mAlarm);
+                mAlarmRepository.deleteAlarm(mAlarm);
                 startActivity(new Intent(getActivity(), AlarmListActivity.class));
             }
         });
