@@ -1,6 +1,7 @@
 package com.example.zooalarm;
 
 import android.content.Intent;
+import android.credentials.CreateCredentialException;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,13 +15,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.zooalarm.database.Alarm;
-import com.example.zooalarm.database.AlarmRepository;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +36,6 @@ public class AlarmFragment extends Fragment {
     private Button mBackButton;
     private Button mSubmitButton;
     private Button mDeleteButton;
-    private AlarmRepository mAlarmRepository;
 
     private static final String TAG = "AlarmFragment";
     private static final String ARG_ALARM_ID = "alarm_id";
@@ -50,12 +50,17 @@ public class AlarmFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        mAlarmRepository = new AlarmRepository(getActivity().getApplication());
-
         super.onCreate(savedInstanceState);
         UUID alarmId = (UUID) getArguments().getSerializable(ARG_ALARM_ID);
-        mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
+        if (alarmId!=null) {
+            mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
+        }
 
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        AlarmLab.get(getActivity()).updateAlarm(mAlarm);
     }
 
     @Override
@@ -72,7 +77,7 @@ public class AlarmFragment extends Fragment {
         if (mAlarm!=null){
             mAlarmField.setText(mAlarm.getTime());
             mRepeatCheckbox.setChecked(mAlarm.getRepeat());
-            if (mAlarm.getActId().equals("flashcards")){
+            if (mAlarm.getActivity().equals("flashcards")){
                 mFlashCards.setChecked(true);
             }else{
                 mPuzzle.setChecked(true);
@@ -94,9 +99,9 @@ public class AlarmFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.is_flashcards) {
-                    mAlarm.setActId("Flashcards");
+                    mAlarm.setActivity("flashcards");
                 } else if (checkedId == R.id.is_word_puzzle) {
-                    mAlarm.setActId("Word Puzzle");
+                    mAlarm.setActivity("puzzle");
                 }
             }
         });
@@ -129,7 +134,8 @@ public class AlarmFragment extends Fragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAlarmRepository.insert(mAlarm);
+                AlarmLab alarmLab = AlarmLab.get(getActivity());
+                alarmLab.addAlarm(mAlarm);
                 startActivity(new Intent(getActivity(), AlarmListActivity.class));
             }
         });
@@ -138,7 +144,8 @@ public class AlarmFragment extends Fragment {
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAlarmRepository.deleteAlarm(mAlarm);
+                AlarmLab alarmLab = AlarmLab.get(getActivity());
+                alarmLab.deleteAlarm(mAlarm.getId());
                 startActivity(new Intent(getActivity(), AlarmListActivity.class));
             }
         });

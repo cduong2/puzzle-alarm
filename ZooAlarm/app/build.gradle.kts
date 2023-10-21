@@ -29,13 +29,8 @@ android {
 }
 
 dependencies {
-    //room dependencies
-    implementation("androidx.room:room-ktx:2.5.0")
-    annotationProcessor("androidx.room:room-compiler:2.5.0")
 
-    // default dependencies
     implementation("androidx.appcompat:appcompat:1.6.1")
-
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.4.0-alpha01")
