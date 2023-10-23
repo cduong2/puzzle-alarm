@@ -36,6 +36,7 @@ public class AlarmFragment extends Fragment {
     private Button mBackButton;
     private Button mSubmitButton;
     private Button mDeleteButton;
+    private Boolean mUpdate=false;
 
     private static final String TAG = "AlarmFragment";
     private static final String ARG_ALARM_ID = "alarm_id";
@@ -54,6 +55,8 @@ public class AlarmFragment extends Fragment {
         UUID alarmId = (UUID) getArguments().getSerializable(ARG_ALARM_ID);
         if (alarmId!=null) {
             mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
+            mUpdate=true;
+
         }
 
     }
@@ -135,8 +138,13 @@ public class AlarmFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlarmLab alarmLab = AlarmLab.get(getActivity());
-                alarmLab.addAlarm(mAlarm);
-                startActivity(new Intent(getActivity(), AlarmListActivity.class));
+                if (mUpdate){
+                    alarmLab.updateAlarm(mAlarm);
+                    startActivity(new Intent(getActivity(), AlarmListActivity.class));
+                }else {
+                    alarmLab.addAlarm(mAlarm);
+                    startActivity(new Intent(getActivity(), AlarmListActivity.class));
+                }
             }
         });
 
