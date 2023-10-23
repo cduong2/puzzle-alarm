@@ -47,6 +47,13 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
     private void updateUI() {
         AlarmLab alarmLab = AlarmLab.get(getActivity());
         List<Alarm> alarms = alarmLab.getAlarms();
+        Collections.sort(alarms, new Comparator<Alarm>() {
+            @Override
+            public int compare(Alarm alarm1, Alarm alarm2) {
+                // Assuming getTime() returns a String in HH:mm format
+                return alarm1.getTime().compareTo(alarm2.getTime());
+            }
+        });
         if (mAdapter == null) {
             mAdapter = new AlarmAdapter(alarms);
             mAlarmRecyclerView.setAdapter(mAdapter);

@@ -26,19 +26,6 @@ public class AlarmLab {
     private AlarmLab(Context context){
         mContext = context.getApplicationContext();
         mDatabase = new AlarmBaseHelper(mContext).getWritableDatabase();
-        for (int i = 0; i < 3; i++) {
-            Alarm alarm = new Alarm();
-            alarm.setActivity("flashcards");
-            alarm.setTime("8:0"+i+" AM");
-            alarm.setOn(true);
-            if(i%2==0) {
-                alarm.setRepeat(true);
-            }else{
-                alarm.setRepeat(false);
-            }
-
-            this.addAlarm(alarm);
-        }
 
     }
     public void addAlarm(Alarm a){
