@@ -1,13 +1,14 @@
 # puzzle-alarm
 to-do
-- flashcard implementation: kelly
-  - different screens for wordle/flashcards
-- alarm form: christina
-- notifications: christina
-- weather api: kelly
-- database and room: kelly
+- fix duplicates in the list: christina
+- alarm manager (a way to make alarms go off): christina
+- internet service (Spotify, weather): kelly
+- add ui for turning off/on alarm
+- add cards for alarm
+
 
 later: 
+- flashcard implementation
 - wordle implementation
 - import sounds
 - make it nice looking
