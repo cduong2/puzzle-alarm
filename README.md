@@ -1,17 +1,14 @@
 # puzzle-alarm
 to-do
-- fix duplicates in the list: christina
-- alarm manager (a way to make alarms go off): christina
+- alarm manager (a way to make alarms go off): christina (nov 2)
 - internet service (Spotify, weather): kelly
 - add ui for turning off/on alarm
-- add cards for alarm
 
 
 later: 
-- flashcard implementation
-- wordle implementation
+- flashcard implementation (11/11)
+- wordle implementation (11/11)
 - import sounds
-- make it nice looking
 
 - beginning to end app due 11/13
 
