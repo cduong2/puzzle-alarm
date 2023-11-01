@@ -1,9 +1,7 @@
 # puzzle-alarm
 to-do
-- alarm manager (a way to make alarms go off): christina (nov 2)
+- alarm notifications and ringing: christina 
 - internet service (Spotify, weather): kelly
-- add ui for turning off/on alarm
-
 
 later: 
 - flashcard implementation (11/11)
