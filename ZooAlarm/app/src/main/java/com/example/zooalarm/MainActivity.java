@@ -2,7 +2,10 @@ package com.example.zooalarm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +26,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mWeatherButton.setOnClickListener(this);
         mAlarmButton = (Button) findViewById(R.id.alarm_button);
         mAlarmButton.setOnClickListener(this);
+        createNotificationChannel();
     }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+            CharSequence name = "zooalarmReminderChannel";
+            String description ="Channel for Zoo Alarm";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("zooalarm", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
     @Override
     public void onStart() {
         super.onStart();

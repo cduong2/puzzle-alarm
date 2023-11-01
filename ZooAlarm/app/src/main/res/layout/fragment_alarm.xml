@@ -6,11 +6,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/alarm_welcome"/>
-    <EditText
-        android:id="@+id/alarm_time"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Time"/>
+        android:id="@+id/selectedTime"
+        android:text="08:45 PM"
+        android:textAlignment="center"
+        android:textSize="40dp"/>
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
