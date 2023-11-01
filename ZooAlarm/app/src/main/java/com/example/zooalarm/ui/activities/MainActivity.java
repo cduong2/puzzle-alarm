@@ -1,4 +1,4 @@
-package com.example.zooalarm;
+package com.example.zooalarm.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import com.example.zooalarm.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private Button mWeatherButton;

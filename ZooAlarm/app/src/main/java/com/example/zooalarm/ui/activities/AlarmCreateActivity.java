@@ -1,14 +1,13 @@
-package com.example.zooalarm;
+package com.example.zooalarm.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+
+import com.example.zooalarm.ui.fragments.AlarmFragment;
 
 import java.util.UUID;
 

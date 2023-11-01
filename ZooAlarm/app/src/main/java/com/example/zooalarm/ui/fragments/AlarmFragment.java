@@ -1,15 +1,10 @@
-package com.example.zooalarm;
-
-import static androidx.core.content.ContextCompat.getSystemService;
+package com.example.zooalarm.ui.fragments;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.credentials.CreateCredentialException;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,22 +12,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.zooalarm.database.Alarm;
+import com.example.zooalarm.database.AlarmLab;
+import com.example.zooalarm.database.AlarmReceiver;
+import com.example.zooalarm.R;
+import com.example.zooalarm.ui.activities.AlarmListActivity;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.UUID;
 
 public class AlarmFragment extends Fragment {
@@ -198,7 +194,7 @@ public class AlarmFragment extends Fragment {
             public void onClick(View v) {
                 String time;
                 if(picker.getHour()>12){
-                    time=String.format("%02d", (picker.getHour()-12)+":"+String.format("%02d",picker.getMinute())+" PM");
+                    time=String.format("%02d", (picker.getHour()-12))+":"+String.format("%02d",picker.getMinute())+" PM";
                     mTimePicker.setText(time);
                     mAlarm.setTime(time);
 

@@ -1,4 +1,4 @@
-package com.example.zooalarm;
+package com.example.zooalarm.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.zooalarm.R;
 
 public class WeatherActivity extends AppCompatActivity {
     private Button mBackButton;

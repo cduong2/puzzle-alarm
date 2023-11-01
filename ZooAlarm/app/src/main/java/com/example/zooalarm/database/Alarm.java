@@ -1,4 +1,4 @@
-package com.example.zooalarm;
+package com.example.zooalarm.database;
 
 import java.sql.Time;
 import java.util.List;

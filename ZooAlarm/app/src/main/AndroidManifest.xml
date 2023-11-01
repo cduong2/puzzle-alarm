@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ZooAlarm"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,18 +22,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AlarmListActivity"
+            android:name=".ui.activities.AlarmListActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".AlarmCreateActivity"
+            android:name=".ui.activities.AlarmCreateActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".WeatherActivity"
+            android:name=".ui.activities.WeatherActivity"
             android:label="@string/app_name">
         </activity>
-        <receiver android:name=".AlarmReceiver"/>
+        <receiver android:name=".database.AlarmReceiver"/>
     </application>
 
 </manifest>

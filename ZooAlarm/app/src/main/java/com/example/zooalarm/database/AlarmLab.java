@@ -1,12 +1,10 @@
-package com.example.zooalarm;
+package com.example.zooalarm.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.zooalarm.database.AlarmBaseHelper;
-import com.example.zooalarm.database.AlarmDbSchema;
 import com.example.zooalarm.database.AlarmDbSchema.AlarmTable;
 
 import java.util.ArrayList;

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/selectedTime"
-        android:text="08:45 PM"
+        android:text="Choose Time"
         android:textAlignment="center"
         android:textSize="40dp"/>
     <TextView

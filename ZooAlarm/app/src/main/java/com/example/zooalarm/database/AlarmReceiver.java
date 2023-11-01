@@ -1,4 +1,4 @@
-package com.example.zooalarm;
+package com.example.zooalarm.database;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -9,6 +9,9 @@ import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import com.example.zooalarm.R;
+import com.example.zooalarm.ui.activities.MainActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
     @Override

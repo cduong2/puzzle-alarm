@@ -1,8 +1,9 @@
-package com.example.zooalarm;
+package com.example.zooalarm.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
+import com.example.zooalarm.database.Alarm;
 import com.example.zooalarm.database.AlarmDbSchema;
 
 import java.util.UUID;
