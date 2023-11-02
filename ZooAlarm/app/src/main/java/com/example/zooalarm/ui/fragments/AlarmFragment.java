@@ -37,7 +37,7 @@ public class AlarmFragment extends Fragment {
     private RadioGroup mActivityRadioGroup;
     private RadioButton mFlashCards;
     private RadioButton mPuzzle;
-    private TextView mTimePicker;
+    private Button mTimePicker;
     private Button mBackButton;
     private Button mSubmitButton;
     private Button mDeleteButton;
