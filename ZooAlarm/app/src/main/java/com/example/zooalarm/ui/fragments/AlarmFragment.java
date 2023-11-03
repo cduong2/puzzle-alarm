@@ -158,7 +158,6 @@ public class AlarmFragment extends Fragment {
                 pendingIntent = PendingIntent.getBroadcast(getContext(),0, intent, PendingIntent.FLAG_IMMUTABLE);
                 if(alarmManager==null){
                     alarmManager=(AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
-
                 }
                 alarmManager.cancel(pendingIntent);
                 Toast.makeText(getContext(),"Alarm Deleted", Toast.LENGTH_SHORT);
@@ -194,16 +193,12 @@ public class AlarmFragment extends Fragment {
             public void onClick(View v) {
                 String time;
                 if(picker.getHour()>12){
-                    time=String.format("%02d", (picker.getHour()-12))+":"+String.format("%02d",picker.getMinute())+" PM";
-                    mTimePicker.setText(time);
-                    mAlarm.setTime(time);
-
+                    time=(picker.getHour()-12)+":"+String.format("%02d",picker.getMinute())+" PM";
                 }else{
-                    time=picker.getHour()+":" + picker.getMinute()+" AM";
-                    mTimePicker.setText(time);
-                    mAlarm.setTime(time);
-
+                    time=picker.getHour()+":" + String.format("%02d",picker.getMinute())+" AM";
                 }
+                mTimePicker.setText(time);
+                mAlarm.setTime(time);
                 cal = Calendar.getInstance();
                 cal.set(Calendar.HOUR_OF_DAY, picker.getHour());
                 cal.set(Calendar.MINUTE, picker.getMinute());
