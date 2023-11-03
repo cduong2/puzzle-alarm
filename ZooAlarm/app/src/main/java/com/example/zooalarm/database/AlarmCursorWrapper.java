@@ -15,12 +15,10 @@ public class AlarmCursorWrapper extends CursorWrapper {
     public Alarm getAlarm() {
         String uuidString = getString(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.UUID));
         String time = getString(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.TIME));
-        String activity = getString(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.ACTIVITY));
         int isOn = getInt(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.ISON));
         int isRepeat = getInt(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.REPEAT));
         Alarm alarm = new Alarm(UUID.fromString(uuidString));
         alarm.setTime(time);
-        alarm.setActivity(activity);
         alarm.setOn(isOn != 0);
         alarm.setRepeat(isRepeat != 0);
 

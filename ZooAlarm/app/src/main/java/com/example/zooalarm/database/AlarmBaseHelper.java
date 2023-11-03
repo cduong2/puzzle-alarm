@@ -19,9 +19,7 @@ public class AlarmBaseHelper extends SQLiteOpenHelper {
                 AlarmTable.Cols.UUID + ", " +
                 AlarmTable.Cols.TIME + ", " +
                 AlarmTable.Cols.REPEAT + ", " +
-                AlarmTable.Cols.ISON + ", " +
-                AlarmTable.Cols.ACTIVITY +
-                ")"
+                AlarmTable.Cols.ISON + ")"
         );
     }
     @Override

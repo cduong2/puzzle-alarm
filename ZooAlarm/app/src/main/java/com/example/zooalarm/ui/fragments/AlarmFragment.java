@@ -34,9 +34,7 @@ import java.util.UUID;
 public class AlarmFragment extends Fragment {
     private Alarm mAlarm;
     private CheckBox mRepeatCheckbox;
-    private RadioGroup mActivityRadioGroup;
-    private RadioButton mFlashCards;
-    private RadioButton mPuzzle;
+
     private Button mTimePicker;
     private Button mBackButton;
     private Button mSubmitButton;
@@ -79,19 +77,12 @@ public class AlarmFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_alarm, container, false);
         Log.d(TAG, "onCreateView: Fragment view is being created.");
         mRepeatCheckbox= v.findViewById(R.id.is_repeat);
-        mActivityRadioGroup = v.findViewById(R.id.activity_radio_group);
-        mFlashCards = v.findViewById(R.id.is_flashcards);
-        mPuzzle = v.findViewById(R.id.is_word_puzzle);
         mTimePicker=v.findViewById(R.id.selectedTime);
 
         if (mAlarm!=null){
             mTimePicker.setText(mAlarm.getTime());
             mRepeatCheckbox.setChecked(mAlarm.getRepeat());
-            if (mAlarm.getActivity().equals("flashcards")){
-                mFlashCards.setChecked(true);
-            }else{
-                mPuzzle.setChecked(true);
-            }
+
         }else{
             mAlarm=new Alarm();
         }
@@ -110,17 +101,7 @@ public class AlarmFragment extends Fragment {
 
 
 
-        // Set up listener for the radio group (activity selection)
-        mActivityRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.is_flashcards) {
-                    mAlarm.setActivity("flashcards");
-                } else if (checkedId == R.id.is_word_puzzle) {
-                    mAlarm.setActivity("puzzle");
-                }
-            }
-        });
+
 
 
 

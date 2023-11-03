@@ -9,7 +9,6 @@ public class Alarm {
     private Boolean mRepeat=true;
     private Boolean mOn=true;
     private String mTime;
-    private String mActId="puzzle";
     public Alarm(){
         this(UUID.randomUUID());
     }
@@ -40,10 +39,5 @@ public class Alarm {
         mOn = on;
     }
 
-    public String getActivity(){
-        return mActId;
-    }
-    public void setActivity(String actId){
-        mActId=actId;
-    }
+
 }

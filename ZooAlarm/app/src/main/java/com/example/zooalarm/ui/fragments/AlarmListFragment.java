@@ -69,18 +69,15 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
     }
     private class AlarmHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTimeTextView;
-        private TextView mActivityTextView;
         private Alarm mAlarm;
         public void bind(Alarm alarm) {
             mAlarm = alarm;
             mTimeTextView.setText(mAlarm.getTime());
-            mActivityTextView.setText(mAlarm.getActivity());
         }
         public AlarmHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_alarm, parent, false));
             itemView.setOnClickListener(this);
             mTimeTextView = (TextView) itemView.findViewById(R.id.alarm_title);
-            mActivityTextView = (TextView) itemView.findViewById(R.id.alarm_activity);
         }
         @Override
         public void onClick(View view) {
