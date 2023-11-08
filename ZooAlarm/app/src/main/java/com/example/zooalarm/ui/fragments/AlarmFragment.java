@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -34,9 +37,8 @@ import java.util.UUID;
 public class AlarmFragment extends Fragment {
     private Alarm mAlarm;
     private CheckBox mRepeatCheckbox;
-
+    private EditText mAlarmTitle;
     private Button mTimePicker;
-    private Button mBackButton;
     private Button mSubmitButton;
     private Button mDeleteButton;
     private Boolean mUpdate=false;
@@ -78,8 +80,10 @@ public class AlarmFragment extends Fragment {
         Log.d(TAG, "onCreateView: Fragment view is being created.");
         mRepeatCheckbox= v.findViewById(R.id.is_repeat);
         mTimePicker=v.findViewById(R.id.selectedTime);
+        mAlarmTitle = v.findViewById(R.id.alarm_title);
 
         if (mAlarm!=null){
+            mAlarmTitle.setText(mAlarm.getTitle());
             mTimePicker.setText(mAlarm.getTime());
             mRepeatCheckbox.setChecked(mAlarm.getRepeat());
 
@@ -92,6 +96,23 @@ public class AlarmFragment extends Fragment {
                     showTimePicker();
             }
         });
+        // Set up listener for the alarm time EditText
+        mAlarmTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // This space intentionally left blank
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mAlarm.setTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // This one too
+            }
+        });
         mRepeatCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
@@ -100,18 +121,6 @@ public class AlarmFragment extends Fragment {
             } });
 
 
-
-
-
-
-
-        mBackButton = v.findViewById(R.id.home_button);
-        mBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), AlarmListActivity.class));
-            }
-        });
         mSubmitButton = v.findViewById(R.id.submit_button);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,9 +179,11 @@ public class AlarmFragment extends Fragment {
                 .build();
         picker.show(getParentFragmentManager(), "zooalarm");
         picker.addOnPositiveButtonClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 String time;
+
                 if(picker.getHour()>12){
                     time=(picker.getHour()-12)+":"+String.format("%02d",picker.getMinute())+" PM";
                 }else{
@@ -187,6 +198,7 @@ public class AlarmFragment extends Fragment {
                 cal.set(Calendar.MILLISECOND, 0);
             }
         });
+
 
     }
 

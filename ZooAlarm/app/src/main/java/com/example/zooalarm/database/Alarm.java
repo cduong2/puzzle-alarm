@@ -9,6 +9,8 @@ public class Alarm {
     private Boolean mRepeat=true;
     private Boolean mOn=true;
     private String mTime;
+    private String mTitle;
+
     public Alarm(){
         this(UUID.randomUUID());
     }
@@ -21,6 +23,10 @@ public class Alarm {
     public String getTime(){
         return mTime;
     }
+    public String getTitle(){
+        return mTitle;
+    }
+
     public Boolean getRepeat(){
         return mRepeat;
     }
@@ -32,6 +38,10 @@ public class Alarm {
     public void setTime(String time){
         mTime = time;
     }
+    public void setTitle(String title){
+        mTitle = title;
+    }
+
     public void setRepeat(Boolean repeat){
         mRepeat = repeat;
     }

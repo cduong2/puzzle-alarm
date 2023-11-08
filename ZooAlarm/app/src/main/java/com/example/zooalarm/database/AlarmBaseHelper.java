@@ -18,6 +18,7 @@ public class AlarmBaseHelper extends SQLiteOpenHelper {
                 " _id integer primary key autoincrement, " +
                 AlarmTable.Cols.UUID + ", " +
                 AlarmTable.Cols.TIME + ", " +
+                AlarmTable.Cols.TITLE + ", " +
                 AlarmTable.Cols.REPEAT + ", " +
                 AlarmTable.Cols.ISON + ")"
         );
