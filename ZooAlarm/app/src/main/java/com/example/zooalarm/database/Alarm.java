@@ -1,4 +1,4 @@
-package com.example.zooalarm;
+package com.example.zooalarm.database;
 
 import java.sql.Time;
 import java.util.List;
@@ -9,7 +9,8 @@ public class Alarm {
     private Boolean mRepeat=true;
     private Boolean mOn=true;
     private String mTime;
-    private String mActId="puzzle";
+    private String mTitle;
+
     public Alarm(){
         this(UUID.randomUUID());
     }
@@ -22,6 +23,10 @@ public class Alarm {
     public String getTime(){
         return mTime;
     }
+    public String getTitle(){
+        return mTitle;
+    }
+
     public Boolean getRepeat(){
         return mRepeat;
     }
@@ -33,6 +38,10 @@ public class Alarm {
     public void setTime(String time){
         mTime = time;
     }
+    public void setTitle(String title){
+        mTitle = title;
+    }
+
     public void setRepeat(Boolean repeat){
         mRepeat = repeat;
     }
@@ -40,10 +49,5 @@ public class Alarm {
         mOn = on;
     }
 
-    public String getActivity(){
-        return mActId;
-    }
-    public void setActivity(String actId){
-        mActId=actId;
-    }
+
 }

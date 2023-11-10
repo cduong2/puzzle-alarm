@@ -1,4 +1,4 @@
-package com.example.zooalarm;
+package com.example.zooalarm.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.zooalarm.database.Alarm;
+import com.example.zooalarm.database.AlarmLab;
+import com.example.zooalarm.R;
+import com.example.zooalarm.ui.activities.AlarmCreateActivity;
+import com.example.zooalarm.ui.activities.MainActivity;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -64,18 +69,19 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
     }
     private class AlarmHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTimeTextView;
-        private TextView mActivityTextView;
+        private TextView mTitleTextView;
+
         private Alarm mAlarm;
         public void bind(Alarm alarm) {
             mAlarm = alarm;
             mTimeTextView.setText(mAlarm.getTime());
-            mActivityTextView.setText(mAlarm.getActivity());
+            mTitleTextView.setText(mAlarm.getTitle());
         }
         public AlarmHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_alarm, parent, false));
             itemView.setOnClickListener(this);
-            mTimeTextView = (TextView) itemView.findViewById(R.id.alarm_title);
-            mActivityTextView = (TextView) itemView.findViewById(R.id.alarm_activity);
+            mTimeTextView = (TextView) itemView.findViewById(R.id.alarm_time);
+            mTitleTextView = (TextView) itemView.findViewById(R.id.alarm_title);
         }
         @Override
         public void onClick(View view) {

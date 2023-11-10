@@ -6,16 +6,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/alarm_welcome"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/selectedTime"
+        android:text="Choose Time"
+        android:textAlignment="center"
+        android:textSize="30dp"/>
     <EditText
-        android:id="@+id/alarm_time"
+        android:id="@+id/alarm_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Time"/>
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Repeat"/>
+        android:hint="Title"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,39 +30,13 @@
         android:text="Repeat"/>
 
     </LinearLayout>
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Activity"/>
-    <RadioGroup
-        android:id="@+id/activity_radio_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/is_flashcards"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Flashcards"/>
 
-        <RadioButton
-            android:id="@+id/is_word_puzzle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Puzzle"/>
-    </RadioGroup>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/home_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="@string/home_button" />
+
         <Button
             android:id="@+id/submit_button"
             android:layout_width="wrap_content"

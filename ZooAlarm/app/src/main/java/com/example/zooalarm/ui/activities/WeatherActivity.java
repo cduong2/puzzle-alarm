@@ -1,4 +1,4 @@
-package com.example.zooalarm;
+package com.example.zooalarm.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DecimalFormat;
-
+import com.example.zooalarm.R;
 public class WeatherActivity extends AppCompatActivity {
     private Button mBackButton;
     private static final String TAG = "WeatherActivity";

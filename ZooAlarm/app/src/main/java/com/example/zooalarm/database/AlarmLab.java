@@ -1,12 +1,10 @@
-package com.example.zooalarm;
+package com.example.zooalarm.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.zooalarm.database.AlarmBaseHelper;
-import com.example.zooalarm.database.AlarmDbSchema;
 import com.example.zooalarm.database.AlarmDbSchema.AlarmTable;
 
 import java.util.ArrayList;
@@ -93,9 +91,9 @@ public class AlarmLab {
         ContentValues values = new ContentValues();
         values.put(AlarmTable.Cols.UUID, alarm.getId().toString());
         values.put(AlarmTable.Cols.TIME, alarm.getTime());
+        values.put(AlarmTable.Cols.TITLE, alarm.getTitle());
         values.put(AlarmTable.Cols.REPEAT, alarm.getRepeat()? 1 : 0);
         values.put(AlarmTable.Cols.ISON, alarm.getOn() ? 1 : 0);
-        values.put(AlarmTable.Cols.ACTIVITY, alarm.getActivity());
         return values;
     }
 
