@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WeatherActivity"
-    android:backgrounds="@drawable/weatherappbg"
     android:orientation="vertical">
 <!--    android:background="#e8f4f8"-->
+<!--    android:backgrounds="@drawable/weatherappbg"-->
 
     <Button
         android:id="@+id/home_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_height="38dp"
         android:layout_gravity="left"
+        android:layout_margin="10dp"
         android:text="@string/home_button" />
 
     <LinearLayout
