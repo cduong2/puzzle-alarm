@@ -5,12 +5,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.DecimalFormat;
 
 public class WeatherActivity extends AppCompatActivity {
     private Button mBackButton;
     private static final String TAG = "WeatherActivity";
+
+    EditText etCity, etCountry;
+    TextView tvResult;
+    private final String url = "";
+    private final String appid = "";
+    DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +60,8 @@ public class WeatherActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
+    }
+
+    public void getWeatherDetails(View view) {
     }
 }
