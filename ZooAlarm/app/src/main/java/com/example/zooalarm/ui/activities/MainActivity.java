@@ -53,22 +53,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (ContextCompat.checkSelfPermission(this, WAKE_LOCK) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[]{WAKE_LOCK}, 1);
         }
-        createNotificationChannel();
+//        createNotificationChannel();
 
     }
 
 
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
-            CharSequence name = "zooalarmReminderChannel";
-            String description ="Channel for Zoo Alarm";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("zooalarm", name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
+//    private void createNotificationChannel() {
+//        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+//            CharSequence name = "zooalarmReminderChannel";
+//            String description ="Channel for Zoo Alarm";
+//            int importance = NotificationManager.IMPORTANCE_HIGH;
+//            NotificationChannel channel = new NotificationChannel("zooalarm", name, importance);
+//            channel.setDescription(description);
+//            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+//            notificationManager.createNotificationChannel(channel);
+//        }
+//    }
 
     @Override
     public void onStart() {

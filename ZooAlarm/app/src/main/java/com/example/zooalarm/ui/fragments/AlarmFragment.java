@@ -1,6 +1,8 @@
 package com.example.zooalarm.ui.fragments;
 
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -80,6 +82,21 @@ public class AlarmFragment extends Fragment {
 
         }
 
+        createNotificationChannel();
+
+    }
+
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+            CharSequence name = "zooalarmReminderChannel";
+            String description ="Channel for Zoo Alarm";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("zooalarm", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
     @Override
     public void onPause() {
@@ -158,7 +175,7 @@ public class AlarmFragment extends Fragment {
                 AlarmLab alarmLab = AlarmLab.get(getActivity());
                 alarmLab.deleteAlarm(mAlarm.getId());
 
-                Intent intent = new Intent(getActivity(), AlarmReceiver.class);
+                Intent intent = new Intent(getContext(), AlarmReceiver.class);
                 pendingIntent = PendingIntent.getBroadcast(getContext(),0, intent, PendingIntent.FLAG_IMMUTABLE);
                 if(alarmManager==null){
                     alarmManager=(AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
@@ -177,9 +194,13 @@ public class AlarmFragment extends Fragment {
     }
 
     private void setAlarm() {
+        alarmManager =(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getContext(), AlarmReceiver.class);
+        pendingIntent=PendingIntent.getBroadcast(getContext(),0,intent, PendingIntent.FLAG_IMMUTABLE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+        Toast.makeText(getContext(),"Alarm Set", Toast.LENGTH_SHORT).show();
+        Log.v("CREATED", "alarm set");
 
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),
-        AlarmManager.INTERVAL_DAY,pendingIntent);
     }
 
     private void showTimePicker() {
