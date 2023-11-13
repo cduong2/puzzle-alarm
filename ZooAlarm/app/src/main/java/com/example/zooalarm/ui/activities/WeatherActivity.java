@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.DecimalFormat;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -40,12 +38,9 @@ public class WeatherActivity extends AppCompatActivity {
 
     EditText etCity, etCountry;
     TextView tvResult;
-    private final String cbusURL = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
     private double latitude = 39.9612; //Columbus
     private double longitude = -82.9988; // Columbus
     private String url = "https://api.open-meteo.com/v1/gfs?latitude=" + latitude + " &longitude=" + longitude + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
-//    private final String appid = ""; // not sure if I need this..
-//    DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,69 +62,6 @@ public class WeatherActivity extends AppCompatActivity {
         etCountry = findViewById(R.id.etCountry);
         tvResult = findViewById(R.id.tvResult); // !! Use this!!
         tvResult.setText("Please Enter The Information");
-
-        // API Weather Info Attempt #2
-//        OkHttpClient client new OkHttpClient();
-
-        // API Weather Info Attempt #3 - Volley
-
-//        url = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                tvResult.setText("The Weather:\n" + response.toString());
-////                tvResult.setText(response.toString());
-////                tvResult.setText("the weather");
-////                int i = response.getInt("userId");
-////                try {
-//////                    tvResult.setText(response.toString());
-////                    String temperature_2m_max = response.getString("temperature_2m_max") + " *C";
-////                    String temperature_2m_min = response.getString("temperature_2m_min");
-////
-////                    tvResult.setText("Max Temp: " + temperature_2m_max + " *C\nMin Temp: " + temperature_2m_min + " *C");
-////                }
-////                catch (JSONException e) {
-////                    e.printStackTrace();
-////                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                tvResult.setText("Error: Could not get Weather Info. \nMAKE SURE YOU ARE CONNECTED TO WIFI.");
-//            }
-//        });
-//
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        requestQueue.add(jsonObjectRequest);
-
-
-        // Access the RequestQueue through your singleton class.
-//        WeatherActivity.getInstance(this).addToRequestQueue(jsonObjectRequest);
-
-//        tvResult.setText("Please Enter Information - Final Call");
-
-//        // attempt #4
-//
-//        // Instantiate the RequestQueue.
-//        RequestQueue queue = Volley.newRequestQueue(this);
-//
-//// Request a string response from the provided URL.
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        // Display the first 500 characters of the response string.
-//                        tvResult.setText("Response is: " + response.substring(0,500));
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                tvResult.setText("That didn't work! #1");
-//            }
-//        });
-//
-//// Add the request to the RequestQueue.
-//        queue.add(stringRequest);
         
     }
     @Override
@@ -165,56 +97,25 @@ public class WeatherActivity extends AppCompatActivity {
         if(city.equals("")){
             tvResult.setText("City field can not be empty!");
         } else {
-            if(!country.equals("")){
-                double columbus_latitude = 39.9612;
-                double columbus_longitude = -82.9988;
-                this.latitude = columbus_latitude; //Custom, will replace later
-                this.longitude = columbus_longitude; //Custom, will replace later
-                this.url = "https://api.open-meteo.com/v1/gfs?latitude=" + latitude + " &longitude=" + longitude + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
-                tempUrl = this.url;
-            } else {
-                //default city is Columbus
-                this.latitude = 39.9612; //Columbus
-                this.longitude = -82.9988; // Columbus
-                this.url = "https://api.open-meteo.com/v1/gfs?latitude=" + latitude + " &longitude=" + longitude + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
-                tempUrl = this.url;
-            }
             tvResult.setText("One second while we get the weather data...");
 
 
 
             //Successful Weather API call!!!
             url = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
-//            url = tempUrl;
 //            url = "https://jsonplaceholder.typicode.com/todos/1";
 //            url = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
             String lat = Double.toString(39.9612); //Columbus, can substitute for location later.
             String lon = Double.toString(-82.9988); // Columbus
             url = "https://api.open-meteo.com/v1/gfs?latitude=" + lat + "&longitude=" + lon + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
 
-//            url = "https://api.open-meteo.com/v1/gfs?latitude=" + latitude + " &longitude=" + longitude + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
-
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     tvResult.setText("The Weather:\n" + response.toString());
-//                    String temperature_2m_max1 = response.optString("temperature_2m_max") + " *C";
-//                    String temperature_2m_min1 = response.optString("temperature_2m_min");
-//                    tvResult.setText("Max Temp: " + temperature_2m_max1 + " *C\nMin Temp: " + temperature_2m_min1 + " *C");
-//                tvResult.setText(response.toString());
-//                tvResult.setText("the weather");
-//                int i = response.getInt("userId");
                     try {
-////                    tvResult.setText(response.toString());
-//                    String temperature_2m_max = response.getString("sunset") + " *C";
-//                    String temperature_2m_min = response.getString("sunrise");
-//
-//                    tvResult.setText("Max Temp: " + temperature_2m_max + " *C\nMin Temp: " + temperature_2m_min + " *C");
-
-//                        String latitude = response.getString("daily");
                         JSONObject daily = response.getJSONObject("daily");
                         JSONObject daily_units = response.getJSONObject("daily_units");
-//                        String time = daily.get("time").toString();
                         tvResult.setText("The Weather:");
                         tvResult.append("\nDate: " + daily.get("time").toString());
                         tvResult.append("\nTime Zone: " + response.getString("timezone") + " (" + response.getString("timezone_abbreviation") + ")");
@@ -225,11 +126,6 @@ public class WeatherActivity extends AppCompatActivity {
                         tvResult.append("\nPrecipitation Sum : " + daily.get("precipitation_sum").toString() + " " + daily_units.get("precipitation_sum").toString());
                         tvResult.append("\nRain Sum : " + daily.get("rain_sum").toString() + " " + daily_units.get("rain_sum").toString());
                         tvResult.append("\nSnowfall Sum : " + daily.get("snowfall_sum").toString() + " " + daily_units.get("snowfall_sum").toString());
-//                        int userId = response.getInt("userId");
-//                        int id = response.getInt("id");
-//                        String title = response.getString("title");
-//
-//                        tvResult.setText(userId + "\n" + id + "\n" + title + "\n");
                 }
                 catch (JSONException e) {
                     tvResult.setText("Caught... Failed...");
