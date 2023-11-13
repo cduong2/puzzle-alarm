@@ -66,40 +66,40 @@ public class WeatherActivity extends AppCompatActivity {
         etCity = findViewById(R.id.etCity);
         etCountry = findViewById(R.id.etCountry);
         tvResult = findViewById(R.id.tvResult); // !! Use this!!
-        tvResult.setText("Please Enter Information - First Call");
+        tvResult.setText("Please Enter The Information");
 
         // API Weather Info Attempt #2
 //        OkHttpClient client new OkHttpClient();
 
         // API Weather Info Attempt #3 - Volley
-        url = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                tvResult.setText("The Weather:\n" + response.toString());
-//                tvResult.setText(response.toString());
-//                tvResult.setText("the weather");
-//                int i = response.getInt("userId");
-//                try {
-////                    tvResult.setText(response.toString());
-//                    String temperature_2m_max = response.getString("temperature_2m_max") + " *C";
-//                    String temperature_2m_min = response.getString("temperature_2m_min");
+//        url = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                tvResult.setText("The Weather:\n" + response.toString());
+////                tvResult.setText(response.toString());
+////                tvResult.setText("the weather");
+////                int i = response.getInt("userId");
+////                try {
+//////                    tvResult.setText(response.toString());
+////                    String temperature_2m_max = response.getString("temperature_2m_max") + " *C";
+////                    String temperature_2m_min = response.getString("temperature_2m_min");
+////
+////                    tvResult.setText("Max Temp: " + temperature_2m_max + " *C\nMin Temp: " + temperature_2m_min + " *C");
+////                }
+////                catch (JSONException e) {
+////                    e.printStackTrace();
+////                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                tvResult.setText("Error: Could not get Weather Info. \nMAKE SURE YOU ARE CONNECTED TO WIFI.");
+//            }
+//        });
 //
-//                    tvResult.setText("Max Temp: " + temperature_2m_max + " *C\nMin Temp: " + temperature_2m_min + " *C");
-//                }
-//                catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                tvResult.setText("Error: Could not get Weather Info");
-            }
-        });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        requestQueue.add(jsonObjectRequest);
 
 
         // Access the RequestQueue through your singleton class.
@@ -179,6 +179,34 @@ public class WeatherActivity extends AppCompatActivity {
                 tempUrl = this.url;
             }
             tvResult.setText("The Weather...");
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    tvResult.setText("The Weather:\n" + response.toString());
+//                tvResult.setText(response.toString());
+//                tvResult.setText("the weather");
+//                int i = response.getInt("userId");
+//                try {
+////                    tvResult.setText(response.toString());
+//                    String temperature_2m_max = response.getString("temperature_2m_max") + " *C";
+//                    String temperature_2m_min = response.getString("temperature_2m_min");
+//
+//                    tvResult.setText("Max Temp: " + temperature_2m_max + " *C\nMin Temp: " + temperature_2m_min + " *C");
+//                }
+//                catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    tvResult.setText("Error: Could not get Weather Info. \nMAKE SURE YOU ARE CONNECTED TO WIFI.");
+                }
+            });
+
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(jsonObjectRequest);
         }
     }
 }
