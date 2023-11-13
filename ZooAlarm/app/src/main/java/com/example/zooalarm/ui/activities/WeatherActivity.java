@@ -85,6 +85,8 @@ public class WeatherActivity extends AppCompatActivity {
         tvResult = findViewById(R.id.tvResult); // !! Use this!!
         tvResult.setText("Please Enter The Information");
 
+        //location
+//        btnGet = (Button) findViewById(R.id.btnGet);
         
     }
     @Override
@@ -123,6 +125,13 @@ public class WeatherActivity extends AppCompatActivity {
             tvResult.setText("One second while we get the weather data...");
 
             //location
+//            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//            btnGet.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    getLastLocation();
+//                }
+//            });
             try {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
                 List<Address> ads = geocoder.getFromLocationName(city,1);
@@ -188,4 +197,24 @@ public class WeatherActivity extends AppCompatActivity {
             requestQueue.add(jsonObjectRequest);
         }
     }
+
+//    private void getLastLocation() {
+//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+//                @Override
+//                public void onSuccess(Location location) {
+//                    if(location != null){
+//                        Geocoder geocoder = new Geocoder(WeatherActivity.this, Locale.getDefault());
+//                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+////                        tvResult.setText("Latitude: " + addresses.get(0).getLatitude());
+////                        tvResult.setText("Longitude: " + addresses.get(0).getLongitude());
+//                        latitude = addresses.get(0).getLatitude();
+//                        longitude = addresses.get(0).getLongitude();
+//                        cityIn = addresses.get(0).getLocality();
+//                        countryIn = addresses.get(0).getCountryName();
+//                    }
+//                }
+//            });
+//        }
+//    }
 }
