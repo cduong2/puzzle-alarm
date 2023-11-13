@@ -2,9 +2,13 @@ package com.example.zooalarm.ui.fragments;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,9 +19,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -61,6 +62,18 @@ public class AlarmFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID alarmId = (UUID) getArguments().getSerializable(ARG_ALARM_ID);
+        alarmManager=(AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager.canScheduleExactAlarms()){
+                Log.v("CREATE", "alarm can be created");
+
+            }else{
+                Log.v("REQUEST", "alarm can NOT be created, sending user to settings");
+
+                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                startActivity(new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:"+ getContext().getPackageName())));
+            }
+        }
         if (alarmId!=null) {
             mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
             mUpdate=true;
@@ -128,12 +141,13 @@ public class AlarmFragment extends Fragment {
                 AlarmLab alarmLab = AlarmLab.get(getActivity());
                 if (mUpdate){
                     alarmLab.updateAlarm(mAlarm);
+                    setAlarm();
                     startActivity(new Intent(getActivity(), AlarmListActivity.class));
                 }else {
                     alarmLab.addAlarm(mAlarm);
+                    setAlarm();
                     startActivity(new Intent(getActivity(), AlarmListActivity.class));
                 }
-                setAlarm();
             }
         });
 
@@ -150,7 +164,8 @@ public class AlarmFragment extends Fragment {
                     alarmManager=(AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
                 }
                 alarmManager.cancel(pendingIntent);
-                Toast.makeText(getContext(),"Alarm Deleted", Toast.LENGTH_SHORT);
+                Log.v("DELETE", "alarm deleted");
+
 
                 startActivity(new Intent(getActivity(), AlarmListActivity.class));
 
@@ -162,12 +177,9 @@ public class AlarmFragment extends Fragment {
     }
 
     private void setAlarm() {
-        alarmManager=(AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getActivity(), AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(getContext(),0, intent, PendingIntent.FLAG_IMMUTABLE);
+
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY,pendingIntent);
-        Toast.makeText(getContext(),"Alarm Set", Toast.LENGTH_SHORT);
+        AlarmManager.INTERVAL_DAY,pendingIntent);
     }
 
     private void showTimePicker() {
