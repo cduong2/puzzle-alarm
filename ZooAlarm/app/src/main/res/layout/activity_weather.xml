@@ -46,15 +46,15 @@
                 android:inputType="textPersonName"
                 android:minHeight="48dp"></EditText>
 
-            <EditText
-                android:id="@+id/etCountry"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:ems="10"
-                android:hint="Enter Country Code (Optional)"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"></EditText>
+<!--            <EditText-->
+<!--                android:id="@+id/etCountry"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:ems="10"-->
+<!--                android:hint="Enter Country Code (Optional)"-->
+<!--                android:inputType="textPersonName"-->
+<!--                android:minHeight="48dp"></EditText>-->
 
             <Button
                 android:id="@+id/btnGet"
