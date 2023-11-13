@@ -175,8 +175,8 @@ public class AlarmFragment extends Fragment {
                 AlarmLab alarmLab = AlarmLab.get(getActivity());
                 alarmLab.deleteAlarm(mAlarm.getId());
 
-                Intent intent = new Intent(getContext(), AlarmReceiver.class);
-                pendingIntent = PendingIntent.getBroadcast(getContext(),0, intent, PendingIntent.FLAG_IMMUTABLE);
+                Intent intent = new Intent(getActivity(), AlarmReceiver.class);
+                pendingIntent = PendingIntent.getBroadcast(getActivity(),0, intent, PendingIntent.FLAG_IMMUTABLE);
                 if(alarmManager==null){
                     alarmManager=(AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
                 }
@@ -195,11 +195,13 @@ public class AlarmFragment extends Fragment {
 
     private void setAlarm() {
         alarmManager =(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getContext(), AlarmReceiver.class);
-        pendingIntent=PendingIntent.getBroadcast(getContext(),0,intent, PendingIntent.FLAG_IMMUTABLE);
+        Intent intent = new Intent(getActivity(), AlarmReceiver.class);
+        pendingIntent=PendingIntent.getBroadcast(getActivity(),0,intent, PendingIntent.FLAG_IMMUTABLE);
+
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
         Toast.makeText(getContext(),"Alarm Set", Toast.LENGTH_SHORT).show();
-        Log.v("CREATED", "alarm set");
+        String message = "alarm will go off in " + cal.getTimeInMillis() +" milliseconds";
+        Log.v("CREATED", message);
 
     }
 

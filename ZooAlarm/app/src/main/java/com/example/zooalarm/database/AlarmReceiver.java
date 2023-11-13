@@ -28,16 +28,14 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "zooalarm")
                 .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Zoo Alarm Manager")
-                .setContentText("Alarm")
-                .setAutoCancel(true)
+                .setContentTitle("ZooAlarm")
+                .setContentText("Alarm!!!")
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            notificationManagerCompat.notify(123, builder.build());
         }else{
             notificationManagerCompat.notify(123, builder.build());
         }
