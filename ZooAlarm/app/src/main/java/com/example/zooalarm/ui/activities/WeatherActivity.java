@@ -1,12 +1,10 @@
 package com.example.zooalarm.ui.activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.util.Log;
@@ -15,9 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.RequestQueue;
@@ -26,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+//import com.example.zooalarm.Manifest;
 import com.example.zooalarm.R;
 
 import org.json.JSONException;
@@ -49,7 +46,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class WeatherActivity extends AppCompatActivity implements LocationListener {
+public class WeatherActivity extends AppCompatActivity {
     private Button mBackButton;
     private static final String TAG = "WeatherActivity";
 
@@ -89,7 +86,7 @@ public class WeatherActivity extends AppCompatActivity implements LocationListen
         tvResult.setText("Please Enter The Information");
 
         //location
-        btnGet = (Button) findViewById(R.id.btnGet);
+//        btnGet = (Button) findViewById(R.id.btnGet);
         
     }
     @Override
@@ -128,13 +125,30 @@ public class WeatherActivity extends AppCompatActivity implements LocationListen
             tvResult.setText("One second while we get the weather data...");
 
             //location
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-            btnGet.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getLastLocation();
-                }
-            });
+//            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//            btnGet.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    getLastLocation();
+//                }
+//            });
+            try {
+                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                List<Address> ads = geocoder.getFromLocationName(city,1);
+//                List<Address> ads = geocoder.getFromLocationName("Columbus",1);
+//                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+//                tvResult.setText("\nCity: " + ads.get(0).getAddressLine(0));
+//                tvResult.append("\nLongitude: " + ads.get(0).getLongitude());
+//                tvResult.append("\nLatitude: " + ads.get(0).getLatitude());
+                cityIn = ads.get(0).getAddressLine(0);
+                longitude = ads.get(0).getLongitude();
+                latitude = ads.get(0).getLatitude();
+//                String city1 = ads.get(0).getLocality();
+//                String state1 = ads.get(0).getAdminArea();
+//                String country1 = ads.get(0).getCountryName();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
 
             //Successful Weather API call!!!
@@ -143,8 +157,8 @@ public class WeatherActivity extends AppCompatActivity implements LocationListen
 //            url = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
 //            String lat = Double.toString(39.9612); //Columbus, can substitute for location later.
 //            String lon = Double.toString(-82.9988); // Columbus
-            String lat = Double.toString(latitude); //location
-            String lon = Double.toString(longitude); //location
+            String lat = Double.toString(latitude);
+            String lon = Double.toString(longitude);
             url = "https://api.open-meteo.com/v1/gfs?latitude=" + lat + "&longitude=" + lon + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -154,19 +168,18 @@ public class WeatherActivity extends AppCompatActivity implements LocationListen
                     try {
                         JSONObject daily = response.getJSONObject("daily");
                         JSONObject daily_units = response.getJSONObject("daily_units");
-                        tvResult.setText("The Weather:");
+                        tvResult.setText("The Weather:\n");
                         tvResult.append("\nDate: " + daily.get("time").toString());
-                        tvResult.append("\nTime Zone: " + response.getString("timezone") + " (" + response.getString("timezone_abbreviation") + ")");
-                        tvResult.append("\nMax Temp: " + daily.get("temperature_2m_max").toString() + daily_units.get("temperature_2m_max").toString());
+                        tvResult.append("\nLocation: " + cityIn);//from Location
+                        tvResult.append("\nLongitude, Latitude: " + lon + ", " + lat);
+//                        tvResult.append("\nTime Zone: " + response.getString("timezone") + " (" + response.getString("timezone_abbreviation") + ")");
+                        tvResult.append("\n\nMax Temp: " + daily.get("temperature_2m_max").toString() + daily_units.get("temperature_2m_max").toString());
                         tvResult.append("\nMin Temp: " + daily.get("temperature_2m_min").toString() + daily_units.get("temperature_2m_min").toString());
-                        tvResult.append("\nSunrise: " + daily.get("sunrise").toString());
+                        tvResult.append("\n\nSunrise: " + daily.get("sunrise").toString());
                         tvResult.append("\nSunset: " + daily.get("sunset").toString());
-                        tvResult.append("\nPrecipitation Sum : " + daily.get("precipitation_sum").toString() + " " + daily_units.get("precipitation_sum").toString());
+                        tvResult.append("\n\nPrecipitation Sum : " + daily.get("precipitation_sum").toString() + " " + daily_units.get("precipitation_sum").toString());
                         tvResult.append("\nRain Sum : " + daily.get("rain_sum").toString() + " " + daily_units.get("rain_sum").toString());
                         tvResult.append("\nSnowfall Sum : " + daily.get("snowfall_sum").toString() + " " + daily_units.get("snowfall_sum").toString());
-
-                        tvResult.append("\n\nYour Current City: " + cityIn);
-                        tvResult.append("\nYour Current Country: " + countryIn);
                 }
                 catch (JSONException e) {
                     tvResult.setText("Caught... Failed...");
@@ -185,47 +198,23 @@ public class WeatherActivity extends AppCompatActivity implements LocationListen
         }
     }
 
-    private void getLastLocation() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if(location != null){
-                        Geocoder geocoder = new Geocoder(WeatherActivity.this, Locale.getDefault());
-                        List<Address> addresses = null;
-                        try {
-                            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-//                        tvResult.setText("Latitude: " + addresses.get(0).getLatitude());
-//                        tvResult.append("Longitude: " + addresses.get(0).getLongitude());
-                            latitude = addresses.get(0).getLatitude();
-                            longitude = addresses.get(0).getLongitude();
-                            cityIn = addresses.get(0).getLocality();
-                            countryIn = addresses.get(0).getCountryName();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    } else {
-                        askPermission();
-                    }
-                }
-            });
-        }
-    }
-
-    private void askPermission() {
-        ActivityCompat.requestPermissions(WeatherActivity.this, new String[]
-                {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-    }
-
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-
-    }
-
-//    @Override
-//    public void OnRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull){
-//        if(requestCode == REQUEST_CODE){
-//            if(grantResults.length > )
+//    private void getLastLocation() {
+//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+//                @Override
+//                public void onSuccess(Location location) {
+//                    if(location != null){
+//                        Geocoder geocoder = new Geocoder(WeatherActivity.this, Locale.getDefault());
+//                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+////                        tvResult.setText("Latitude: " + addresses.get(0).getLatitude());
+////                        tvResult.setText("Longitude: " + addresses.get(0).getLongitude());
+//                        latitude = addresses.get(0).getLatitude();
+//                        longitude = addresses.get(0).getLongitude();
+//                        cityIn = addresses.get(0).getLocality();
+//                        countryIn = addresses.get(0).getCountryName();
+//                    }
+//                }
+//            });
 //        }
 //    }
 }
