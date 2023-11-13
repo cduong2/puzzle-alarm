@@ -1,26 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ui.activities.WeatherActivity"
     android:orientation="vertical">
+<!--    android:background="#e8f4f8"-->
+<!--    android:backgrounds="@drawable/weatherappbg"-->
+
     <Button
         android:id="@+id/home_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity= "left"
         android:layout_margin="10dp"
-        android:layout_gravity="left"
         android:text="@string/home_button" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="vertical">
+<!--        android:layout_width="wrap_content"-->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="24dp"
             android:text="@string/weather_welcome"
-            android:textSize="24dp"/>
+            android:textSize="24dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="Enter City Name"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"></EditText>
+
+            <EditText
+                android:id="@+id/etCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="Enter Country Code (Optional)"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"></EditText>
+
+            <Button
+                android:id="@+id/btnGet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="#0070c7"
+                android:backgroundTint="@null"
+                android:onClick="getWeatherDetails"
+                android:text="Get Info"
+                android:textColor="@android:color/white" />
+            <!--            <ScrollView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="150dp"></ScrollView>-->
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="300dp"></TextView>
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>
