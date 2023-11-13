@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WeatherActivity"
+    tools:context=".ui.activities.WeatherActivity"
     android:orientation="vertical">
 <!--    android:background="#e8f4f8"-->
 <!--    android:backgrounds="@drawable/weatherappbg"-->
@@ -11,8 +11,8 @@
     <Button
         android:id="@+id/home_button"
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:layout_gravity="left"
+        android:layout_height="48dp"
+        android:layout_gravity= "left"
         android:layout_margin="10dp"
         android:text="@string/home_button" />
 
@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/etCity"
                 android:layout_marginBottom="10dp"
+                android:minHeight="48dp"
                 android:ems="10"
                 android:hint="Enter City Name"
                 android:inputType="textPersonName"></EditText>
@@ -46,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/etCountry"
                 android:layout_marginBottom="10dp"
+                android:minHeight="48dp"
                 android:ems="10"
                 android:hint="Enter Country Code (Optional)"
                 android:inputType="textPersonName"></EditText>
@@ -57,11 +59,11 @@
                 android:background="#0070c7"
                 android:textColor="@android:color/white"
                 android:onClick="getWeatherDetails"
-                android:text="Get"
+                android:text="Get Info"
                 android:backgroundTint="@null" />
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"></ScrollView>
+<!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="150dp"></ScrollView>-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -50,4 +50,7 @@ dependencies {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
         }
     }
+//    implementation("com.android.volley:volley:1.1.1")
+    implementation("com.android.volley:volley:1.2.1")
+//    implementation("com.squareup.okhttp3:okhttp:3.9.1")
 }
