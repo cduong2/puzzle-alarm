@@ -1,11 +1,5 @@
 # puzzle-alarm
 to-do
-- alarm notifications and ringing: christina 
-- internet service (Spotify, weather): kelly
+- import sounds and test on real device: christina 
+- UI for weather portion and icon for app: kelly
 
-later: 
-- flashcard implementation (11/11)
-- wordle implementation (11/11)
-- import sounds
-
-- beginning to end app due 11/13
