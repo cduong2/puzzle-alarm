@@ -52,5 +52,6 @@ dependencies {
     }
 //    implementation("com.android.volley:volley:1.1.1")
     implementation("com.android.volley:volley:1.2.1")
+    implementation("com.google.android.gms:play-services-location:21.0.1") //location
 //    implementation("com.squareup.okhttp3:okhttp:3.9.1")
 }

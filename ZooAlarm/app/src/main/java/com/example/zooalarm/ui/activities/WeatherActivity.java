@@ -72,6 +72,7 @@ public class WeatherActivity extends AppCompatActivity {
 //        OkHttpClient client new OkHttpClient();
 
         // API Weather Info Attempt #3 - Volley
+
 //        url = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
 //        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 //            @Override
@@ -178,25 +179,62 @@ public class WeatherActivity extends AppCompatActivity {
                 this.url = "https://api.open-meteo.com/v1/gfs?latitude=" + latitude + " &longitude=" + longitude + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
                 tempUrl = this.url;
             }
-            tvResult.setText("The Weather...");
+            tvResult.setText("One second while we get the weather data...");
+
+
+
+            //Successful Weather API call!!!
+            url = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
+//            url = tempUrl;
+//            url = "https://jsonplaceholder.typicode.com/todos/1";
+//            url = "https://api.open-meteo.com/v1/gfs?latitude=39.9612&longitude=-82.9988&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
+            String lat = Double.toString(39.9612); //Columbus, can substitute for location later.
+            String lon = Double.toString(-82.9988); // Columbus
+            url = "https://api.open-meteo.com/v1/gfs?latitude=" + lat + "&longitude=" + lon + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
+
+//            url = "https://api.open-meteo.com/v1/gfs?latitude=" + latitude + " &longitude=" + longitude + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     tvResult.setText("The Weather:\n" + response.toString());
+//                    String temperature_2m_max1 = response.optString("temperature_2m_max") + " *C";
+//                    String temperature_2m_min1 = response.optString("temperature_2m_min");
+//                    tvResult.setText("Max Temp: " + temperature_2m_max1 + " *C\nMin Temp: " + temperature_2m_min1 + " *C");
 //                tvResult.setText(response.toString());
 //                tvResult.setText("the weather");
 //                int i = response.getInt("userId");
-//                try {
+                    try {
 ////                    tvResult.setText(response.toString());
-//                    String temperature_2m_max = response.getString("temperature_2m_max") + " *C";
-//                    String temperature_2m_min = response.getString("temperature_2m_min");
+//                    String temperature_2m_max = response.getString("sunset") + " *C";
+//                    String temperature_2m_min = response.getString("sunrise");
 //
 //                    tvResult.setText("Max Temp: " + temperature_2m_max + " *C\nMin Temp: " + temperature_2m_min + " *C");
-//                }
-//                catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+
+//                        String latitude = response.getString("daily");
+                        JSONObject daily = response.getJSONObject("daily");
+                        JSONObject daily_units = response.getJSONObject("daily_units");
+//                        String time = daily.get("time").toString();
+                        tvResult.setText("The Weather:");
+                        tvResult.append("\nDate: " + daily.get("time").toString());
+                        tvResult.append("\nTime Zone: " + response.getString("timezone") + " (" + response.getString("timezone_abbreviation") + ")");
+                        tvResult.append("\nMax Temp: " + daily.get("temperature_2m_max").toString() + daily_units.get("temperature_2m_max").toString());
+                        tvResult.append("\nMin Temp: " + daily.get("temperature_2m_min").toString() + daily_units.get("temperature_2m_min").toString());
+                        tvResult.append("\nSunrise: " + daily.get("sunrise").toString());
+                        tvResult.append("\nSunset: " + daily.get("sunset").toString());
+                        tvResult.append("\nPrecipitation Sum : " + daily.get("precipitation_sum").toString() + " " + daily_units.get("precipitation_sum").toString());
+                        tvResult.append("\nRain Sum : " + daily.get("rain_sum").toString() + " " + daily_units.get("rain_sum").toString());
+                        tvResult.append("\nSnowfall Sum : " + daily.get("snowfall_sum").toString() + " " + daily_units.get("snowfall_sum").toString());
+//                        int userId = response.getInt("userId");
+//                        int id = response.getInt("id");
+//                        String title = response.getString("title");
+//
+//                        tvResult.setText(userId + "\n" + id + "\n" + title + "\n");
+                }
+                catch (JSONException e) {
+                    tvResult.setText("Caught... Failed...");
+                    e.printStackTrace();
+                }
                 }
             }, new Response.ErrorListener() {
                 @Override
