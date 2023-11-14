@@ -2,7 +2,8 @@
 to-do
 - Christina: import sounds and test on real device
 - kelly: UI for weather portion and icon for app: kelly
-- bug for rotating screens when making a new alarm (the time isn't saved)
+- bug: rotating screens when making a new alarm (the time isn't saved)
+- bug: multiple alarms only works sometimes
 
 checkpoint 6:
 - address one performance NFR and demonstrate improvements using before and after profiler snapshots
