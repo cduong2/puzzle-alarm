@@ -27,7 +27,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent i = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_IMMUTABLE);
-        Uri customSoundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.horse);
+        Uri customSoundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.birds);
 
         long[] vibrate = new long[] { 1000, 1000, 1000, 1000, 1000 };
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "zooalarm")
