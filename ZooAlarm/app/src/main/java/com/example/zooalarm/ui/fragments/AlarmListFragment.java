@@ -55,8 +55,25 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         Collections.sort(alarms, new Comparator<Alarm>() {
             @Override
             public int compare(Alarm alarm1, Alarm alarm2) {
-                // Assuming getTime() returns a String in HH:mm format
-                return alarm1.getTime().compareTo(alarm2.getTime());
+                String time1=alarm1.getTime();
+                String time2=alarm2.getTime();
+                String[] parts1 = time1.split("[:\\s]");
+                String[] parts2 = time2.split("[:\\s]");
+
+                // Convert the hour parts to integers
+                int hour1 = Integer.parseInt(parts1[0]);
+                int hour2 = Integer.parseInt(parts2[0]);
+
+                // Convert AM/PM to integers (AM=0, PM=1)
+                int amPm1 = parts1[2].equalsIgnoreCase("AM") ? 0 : 1;
+                int amPm2 = parts2[2].equalsIgnoreCase("AM") ? 0 : 1;
+
+                // Compare AM/PM first, then by hour
+                if (amPm1 != amPm2) {
+                    return Integer.compare(amPm1, amPm2); // AM comes before PM
+                } else {
+                    return Integer.compare(hour1, hour2); // Compare by hour
+                }
             }
         });
         if (mAdapter == null) {
