@@ -41,7 +41,6 @@ import java.util.UUID;
 
 public class AlarmFragment extends Fragment {
     private Alarm mAlarm;
-    private CheckBox mRepeatCheckbox;
     private EditText mAlarmTitle;
     private Button mTimePicker;
     private Button mSubmitButton;
@@ -110,14 +109,12 @@ public class AlarmFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_alarm, container, false);
         Log.d(TAG, "onCreateView: Fragment view is being created.");
-        mRepeatCheckbox= v.findViewById(R.id.is_repeat);
         mTimePicker=v.findViewById(R.id.selectedTime);
         mAlarmTitle = v.findViewById(R.id.alarm_title);
 
         if (mAlarm!=null){
             mAlarmTitle.setText(mAlarm.getTitle());
             mTimePicker.setText(mAlarm.getTime());
-            mRepeatCheckbox.setChecked(mAlarm.getRepeat());
 
         }else{
             mAlarm=new Alarm();
@@ -145,12 +142,7 @@ public class AlarmFragment extends Fragment {
                 // This one too
             }
         });
-        mRepeatCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                mAlarm.setRepeat(isChecked);
-            } });
+
 
 
         mSubmitButton = v.findViewById(R.id.submit_button);
@@ -201,7 +193,6 @@ public class AlarmFragment extends Fragment {
         pendingIntent=PendingIntent.getBroadcast(getActivity(),0,intent, PendingIntent.FLAG_IMMUTABLE);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
 
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
         Toast.makeText(getContext(),"Alarm Set", Toast.LENGTH_SHORT).show();
         String message = "alarm will go off in " + cal.getTimeInMillis() +" milliseconds";
         Log.v("CREATED", message);

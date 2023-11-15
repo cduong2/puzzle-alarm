@@ -7,7 +7,6 @@ public class AlarmDbSchema {
             public static final String UUID ="uuid";
             public static final String TIME = "time";
             public static final String TITLE = "title";
-            public static final String REPEAT = "repeat";
             public static final String ISON = "is_on";
 
         }

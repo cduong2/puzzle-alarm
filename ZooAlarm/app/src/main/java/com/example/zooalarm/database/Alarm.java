@@ -27,9 +27,6 @@ public class Alarm {
         return mTitle;
     }
 
-    public Boolean getRepeat(){
-        return mRepeat;
-    }
     public Boolean getOn(){
         return mOn;
     }
@@ -42,9 +39,6 @@ public class Alarm {
         mTitle = title;
     }
 
-    public void setRepeat(Boolean repeat){
-        mRepeat = repeat;
-    }
     public void setOn(Boolean on){
         mOn = on;
     }

@@ -92,7 +92,6 @@ public class AlarmLab {
         values.put(AlarmTable.Cols.UUID, alarm.getId().toString());
         values.put(AlarmTable.Cols.TIME, alarm.getTime());
         values.put(AlarmTable.Cols.TITLE, alarm.getTitle());
-        values.put(AlarmTable.Cols.REPEAT, alarm.getRepeat()? 1 : 0);
         values.put(AlarmTable.Cols.ISON, alarm.getOn() ? 1 : 0);
         return values;
     }
