@@ -7,6 +7,6 @@ to-do
 
 checkpoint 6:
 - address another NFR (increased app security, design enhancements, accessibility support, localization in another language)
-- three unit tests using an android test framework (JUnit). Place tests in test folder. What is "test doubles"?????
+- three unit tests using an android test framework (JUnit). Place tests in test folder. What is "test doubles"????? (testing code units such as methods)
 - three instrumented UI tests using android test framework (JUnit, Espresso, Xcode). Place tests in androidTest folder in your project directory (example: open app and login appears)
 
