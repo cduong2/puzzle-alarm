@@ -7,7 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.zooalarm.database.AlarmDbSchema.AlarmTable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -90,10 +93,16 @@ public class AlarmLab {
     private static ContentValues getContentValues(Alarm alarm) {
         ContentValues values = new ContentValues();
         values.put(AlarmTable.Cols.UUID, alarm.getId().toString());
-        values.put(AlarmTable.Cols.TIME, alarm.getTime());
+        values.put(String.valueOf(AlarmTable.Cols.TIME), alarm.getTime());
         values.put(AlarmTable.Cols.TITLE, alarm.getTitle());
         values.put(AlarmTable.Cols.ISON, alarm.getOn() ? 1 : 0);
         return values;
+    }
+    public static String getTimeString(long mms) {
+        Date date = new Date(mms);
+        DateFormat formatter = new SimpleDateFormat("HH:mm");
+        String dateFormatted = formatter.format(date);
+        return dateFormatted;
     }
 
 }

@@ -36,7 +36,11 @@ import com.example.zooalarm.ui.activities.AlarmListActivity;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.UUID;
 
 public class AlarmFragment extends Fragment {
@@ -114,7 +118,8 @@ public class AlarmFragment extends Fragment {
 
         if (mAlarm!=null){
             mAlarmTitle.setText(mAlarm.getTitle());
-            mTimePicker.setText(mAlarm.getTime());
+            String dateFormatted=AlarmLab.getTimeString(mAlarm.getTime());
+            mTimePicker.setText(dateFormatted);
 
         }else{
             mAlarm=new Alarm();
@@ -152,13 +157,11 @@ public class AlarmFragment extends Fragment {
                 AlarmLab alarmLab = AlarmLab.get(getActivity());
                 if (mUpdate){
                     alarmLab.updateAlarm(mAlarm);
-                    setAlarm();
-                    startActivity(new Intent(getActivity(), AlarmListActivity.class));
                 }else {
                     alarmLab.addAlarm(mAlarm);
-                    setAlarm();
-                    startActivity(new Intent(getActivity(), AlarmListActivity.class));
                 }
+                setAlarm();
+                startActivity(new Intent(getActivity(), AlarmListActivity.class));
             }
         });
 
@@ -175,9 +178,6 @@ public class AlarmFragment extends Fragment {
                     alarmManager=(AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
                 }
                 alarmManager.cancel(pendingIntent);
-                Log.v("DELETE", "alarm deleted");
-
-
                 startActivity(new Intent(getActivity(), AlarmListActivity.class));
 
             }
@@ -191,11 +191,10 @@ public class AlarmFragment extends Fragment {
         alarmManager =(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getActivity(), AlarmReceiver.class);
         pendingIntent=PendingIntent.getBroadcast(getActivity(),0,intent, PendingIntent.FLAG_IMMUTABLE);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, mAlarm.getTime(),pendingIntent);
 
         Toast.makeText(getContext(),"Alarm Set", Toast.LENGTH_SHORT).show();
-        String message = "alarm will go off in " + cal.getTimeInMillis() +" milliseconds";
-        Log.v("CREATED", message);
 
     }
 
@@ -219,12 +218,13 @@ public class AlarmFragment extends Fragment {
                     time=picker.getHour()+":" + String.format("%02d",picker.getMinute())+" AM";
                 }
                 mTimePicker.setText(time);
-                mAlarm.setTime(time);
+
                 cal = Calendar.getInstance();
                 cal.set(Calendar.HOUR_OF_DAY, picker.getHour());
                 cal.set(Calendar.MINUTE, picker.getMinute());
                 cal.set(Calendar.SECOND, 0);
                 cal.set(Calendar.MILLISECOND, 0);
+                mAlarm.setTime(cal.getTimeInMillis());
             }
         });
 

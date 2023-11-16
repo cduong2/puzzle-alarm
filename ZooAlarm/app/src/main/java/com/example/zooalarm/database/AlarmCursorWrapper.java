@@ -14,7 +14,7 @@ public class AlarmCursorWrapper extends CursorWrapper {
     }
     public Alarm getAlarm() {
         String uuidString = getString(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.UUID));
-        String time = getString(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.TIME));
+        long time = getLong(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.TIME));
         String title = getString(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.TITLE));
         int isOn = getInt(getColumnIndex(AlarmDbSchema.AlarmTable.Cols.ISON));
         Alarm alarm = new Alarm(UUID.fromString(uuidString));

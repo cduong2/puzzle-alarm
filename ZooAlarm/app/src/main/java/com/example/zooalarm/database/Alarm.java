@@ -8,7 +8,7 @@ public class Alarm {
     private UUID mId;
     private Boolean mRepeat=true;
     private Boolean mOn=true;
-    private String mTime;
+    private long mTime;
     private String mTitle;
 
     public Alarm(){
@@ -20,7 +20,7 @@ public class Alarm {
     public UUID getId(){
         return mId;
     }
-    public String getTime(){
+    public long getTime(){
         return mTime;
     }
     public String getTitle(){
@@ -32,7 +32,7 @@ public class Alarm {
     }
 
 
-    public void setTime(String time){
+    public void setTime(long time){
         mTime = time;
     }
     public void setTitle(String title){

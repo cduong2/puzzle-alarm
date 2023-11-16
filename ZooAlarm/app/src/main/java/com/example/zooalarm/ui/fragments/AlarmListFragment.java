@@ -68,8 +68,8 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         Collections.sort(alarms, new Comparator<Alarm>() {
             @Override
             public int compare(Alarm alarm1, Alarm alarm2) {
-                String time1 = alarm1.getTime();
-                String time2 = alarm2.getTime();
+                String time1 = AlarmLab.getTimeString(alarm1.getTime());
+                String time2 = AlarmLab.getTimeString(alarm2.getTime());
                 String[] parts1 = time1.split("[:\\s]");
                 String[] parts2 = time2.split("[:\\s]");
 
@@ -105,7 +105,7 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
         private Alarm mAlarm;
         public void bind(Alarm alarm) {
             mAlarm = alarm;
-            mTimeTextView.setText(mAlarm.getTime());
+            mTimeTextView.setText(AlarmLab.getTimeString(mAlarm.getTime()));
             mTitleTextView.setText(mAlarm.getTitle());
         }
         public AlarmHolder(LayoutInflater inflater, ViewGroup parent) {
