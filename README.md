@@ -1,10 +1,11 @@
 # puzzle-alarm
 to-do
-- kelly: UI for weather portion and icon for app: kelly
-- christina: bug: rotating screens when making a new alarm (the time isn't saved)
-- christina: bug: multiple alarms only works sometimes
+- bug: rotating screens when making a new alarm (the time isn't saved)
+- bug: multiple alarms only works sometimes
+- bug: updating alarm
 - christina: address one performance NFR and demonstrate improvements using before and after profiler snapshots
 - kelly: instrumented UI tests
+- kelly: UI for weather portion and icon for app: kelly
   
 
 QUESTIONS:
