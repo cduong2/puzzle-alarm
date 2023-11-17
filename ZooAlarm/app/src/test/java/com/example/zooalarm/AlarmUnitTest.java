@@ -65,9 +65,9 @@ public class AlarmUnitTest {
         Alarm third= new Alarm();
 
         //alarms should be in this order after sorting
-        first.setTime(1700154340779L);
-        second.setTime(1700164340779L);
-        third.setTime(1700174340779L);
+        first.setTime(1700146800000L);
+        second.setTime(1700147100000L);
+        third.setTime(1700147700000L);
         //alarms inserted out of order
         original.add(third);
         original.add(second);
@@ -111,7 +111,7 @@ public class AlarmUnitTest {
     }
     @Test
     public void get_time_string(){
-        String expected="13:00";
+        String expected="01:00 PM";
         String actual= AlarmLab.getTimeString(1700157600000L);
         assertEquals(expected,actual);
     }

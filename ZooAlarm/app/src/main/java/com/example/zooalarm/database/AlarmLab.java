@@ -100,7 +100,7 @@ public class AlarmLab {
     }
     public static String getTimeString(long mms) {
         Date date = new Date(mms);
-        DateFormat formatter = new SimpleDateFormat("HH:mm");
+        DateFormat formatter = new SimpleDateFormat("hh:mm a");
         String dateFormatted = formatter.format(date);
         return dateFormatted;
     }

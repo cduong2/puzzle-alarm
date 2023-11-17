@@ -212,6 +212,13 @@ public class AlarmFragment extends Fragment {
                 cal.set(Calendar.MINUTE, picker.getMinute());
                 cal.set(Calendar.SECOND, 0);
                 cal.set(Calendar.MILLISECOND, 0);
+                //add a day if the selected time already passed
+                Calendar currentTime = Calendar.getInstance();
+                if (cal.before(currentTime)) {
+                    // If so, set the calendar day to the next day
+                    cal.add(Calendar.DAY_OF_YEAR, 1);
+                }
+
                 String dateFormatted=AlarmLab.getTimeString(cal.getTimeInMillis());
                 mTimePicker.setText(dateFormatted);
                 mAlarm.setTime(cal.getTimeInMillis());

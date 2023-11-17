@@ -81,24 +81,19 @@ public class AlarmListFragment extends Fragment implements View.OnClickListener{
                 int minute1 = Integer.parseInt(parts1[1]);
                 int minute2 = Integer.parseInt(parts2[1]);
 
-//                // Convert AM/PM to integers (AM=0, PM=1)
-//                int amPm1 = parts1[2].equalsIgnoreCase("AM") ? 0 : 1;
-//                int amPm2 = parts2[2].equalsIgnoreCase("AM") ? 0 : 1;
+                // Convert AM/PM to integers (AM=0, PM=1)
+                int amPm1 = parts1[2].equalsIgnoreCase("AM") ? 0 : 1;
+                int amPm2 = parts2[2].equalsIgnoreCase("AM") ? 0 : 1;
 
-//                // Compare AM/PM first, then by hour, and finally by minute
-//                if (amPm1 != amPm2) {
-//                    return Integer.compare(amPm1, amPm2); // AM comes before PM
-//                } else if (hour1 != hour2) {
-//                    return Integer.compare(hour1, hour2); // Compare by hour
-//                } else {
-//                    return Integer.compare(minute1, minute2); // Compare by minute
-//                }
                 // Compare AM/PM first, then by hour, and finally by minute
-                if (hour1 != hour2) {
+                if (amPm1 != amPm2) {
+                    return Integer.compare(amPm1, amPm2); // AM comes before PM
+                } else if (hour1 != hour2) {
                     return Integer.compare(hour1, hour2); // Compare by hour
                 } else {
                     return Integer.compare(minute1, minute2); // Compare by minute
                 }
+
             }
         });
 
