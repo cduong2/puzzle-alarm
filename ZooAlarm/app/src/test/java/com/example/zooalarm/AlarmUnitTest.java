@@ -3,6 +3,7 @@ package com.example.zooalarm;
 import static org.junit.Assert.assertEquals;
 
 import com.example.zooalarm.database.Alarm;
+import com.example.zooalarm.database.AlarmLab;
 import com.example.zooalarm.ui.fragments.AlarmListFragment;
 
 
@@ -35,10 +36,12 @@ public class AlarmUnitTest {
         Alarm first= new Alarm();
         Alarm second= new Alarm();
         Alarm third= new Alarm();
+
+
         //alarms should be in this order after sorting
-        first.setTime("10:05 AM");
-        second.setTime("10:02 PM");
-        third.setTime("11:03 PM");
+        first.setTime(1700174340779L);
+        second.setTime(1700174440779L);
+        third.setTime(1700174540779L);
         //alarms inserted out of order
         original.add(second);
         original.add(third);
@@ -60,10 +63,11 @@ public class AlarmUnitTest {
         Alarm first= new Alarm();
         Alarm second= new Alarm();
         Alarm third= new Alarm();
+
         //alarms should be in this order after sorting
-        first.setTime("10:01 AM");
-        second.setTime("10:02 AM");
-        third.setTime("10:30 AM");
+        first.setTime(1700154340779L);
+        second.setTime(1700164340779L);
+        third.setTime(1700174340779L);
         //alarms inserted out of order
         original.add(third);
         original.add(second);
@@ -86,10 +90,12 @@ public class AlarmUnitTest {
         Alarm first= new Alarm();
         Alarm second= new Alarm();
         Alarm third= new Alarm();
+
+
         //alarms should be in this order after sorting
-        first.setTime("2:01 AM");
-        second.setTime("10:02 AM");
-        third.setTime("3:30 PM");
+        first.setTime(1700174340779L);
+        second.setTime(1700184340779L);
+        third.setTime(1700194340779L);
         //alarms inserted out of order
         original.add(second);
         original.add(third);
@@ -102,6 +108,12 @@ public class AlarmUnitTest {
 
         AlarmListFragment.sortByTime(original);
         assertEquals(expected,original);
+    }
+    @Test
+    public void get_time_string(){
+        String expected="13:00";
+        String actual= AlarmLab.getTimeString(1700157600000L);
+        assertEquals(expected,actual);
     }
 
 

@@ -9,8 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlarmManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +53,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(AlarmReceiver.r!=null) {
             AlarmReceiver.r.stop();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+            if (alarmManager.canScheduleExactAlarms()){
+                Log.v("CREATE", "alarm can be created");
+
+            }else{
+                Log.v("REQUEST", "alarm can NOT be created, sending user to settings");
+                startActivity(new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:"+ getPackageName())));
+            }
         }
 
 

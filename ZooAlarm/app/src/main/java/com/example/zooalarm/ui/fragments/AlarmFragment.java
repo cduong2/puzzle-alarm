@@ -1,5 +1,6 @@
 package com.example.zooalarm.ui.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -45,13 +46,9 @@ import java.util.UUID;
 
 public class AlarmFragment extends Fragment {
     private Alarm mAlarm;
-    private EditText mAlarmTitle;
-    private Button mTimePicker;
-    private Button mSubmitButton;
-    private Button mDeleteButton;
     private Boolean mUpdate=false;
-    private MaterialTimePicker picker;
     private Calendar cal;
+
     private AlarmManager alarmManager;
     private static final String TAG = "AlarmFragment";
     private static final String ARG_ALARM_ID = "alarm_id";
@@ -70,24 +67,15 @@ public class AlarmFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UUID alarmId = (UUID) getArguments().getSerializable(ARG_ALARM_ID);
         alarmManager=(AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (alarmManager.canScheduleExactAlarms()){
-                Log.v("CREATE", "alarm can be created");
+        createNotificationChannel();
 
-            }else{
-                Log.v("REQUEST", "alarm can NOT be created, sending user to settings");
 
-                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-                startActivity(new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:"+ getContext().getPackageName())));
-            }
-        }
         if (alarmId!=null) {
             mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
             mUpdate=true;
 
         }
 
-        createNotificationChannel();
 
     }
 
@@ -106,11 +94,16 @@ public class AlarmFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        AlarmLab.get(getActivity()).updateAlarm(mAlarm);
+        if (alarmManager != null) {
+            AlarmLab.get(getActivity()).updateAlarm(mAlarm);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        EditText mAlarmTitle;
+        Button mTimePicker,mSubmitButton,mDeleteButton;
+
         View v = inflater.inflate(R.layout.fragment_alarm, container, false);
         Log.d(TAG, "onCreateView: Fragment view is being created.");
         mTimePicker=v.findViewById(R.id.selectedTime);
@@ -127,7 +120,7 @@ public class AlarmFragment extends Fragment {
         mTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    showTimePicker();
+                    showTimePicker(mTimePicker);
             }
         });
         // Set up listener for the alarm time EditText
@@ -147,8 +140,6 @@ public class AlarmFragment extends Fragment {
                 // This one too
             }
         });
-
-
 
         mSubmitButton = v.findViewById(R.id.submit_button);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -187,43 +178,42 @@ public class AlarmFragment extends Fragment {
         return v;
     }
 
+    @SuppressLint("ScheduleExactAlarm")
     private void setAlarm() {
-        alarmManager =(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager == null) {
+            alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        }
         Intent intent = new Intent(getActivity(), AlarmReceiver.class);
         pendingIntent=PendingIntent.getBroadcast(getActivity(),0,intent, PendingIntent.FLAG_IMMUTABLE);
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, mAlarm.getTime(),pendingIntent);
-
-        Toast.makeText(getContext(),"Alarm Set", Toast.LENGTH_SHORT).show();
-
+        if (alarmManager != null) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, mAlarm.getTime(), pendingIntent);
+            Toast.makeText(getContext(), "Alarm Set", Toast.LENGTH_SHORT).show();
+        }
     }
+    private MaterialTimePicker picker;
 
-    private void showTimePicker() {
-        picker = new MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_12H)
-                .setHour(12)
-                .setMinute(0)
-                .setTitleText("Select Alarm Time")
-                .build();
+    private void showTimePicker(Button mTimePicker) {
+        if (picker==null) {
+            picker = new MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    .setHour(12)
+                    .setMinute(0)
+                    .setTitleText("Select Alarm Time")
+                    .build();
+        }
         picker.show(getParentFragmentManager(), "zooalarm");
         picker.addOnPositiveButtonClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String time;
-
-                if(picker.getHour()>12){
-                    time=(picker.getHour()-12)+":"+String.format("%02d",picker.getMinute())+" PM";
-                }else{
-                    time=picker.getHour()+":" + String.format("%02d",picker.getMinute())+" AM";
-                }
-                mTimePicker.setText(time);
-
                 cal = Calendar.getInstance();
                 cal.set(Calendar.HOUR_OF_DAY, picker.getHour());
                 cal.set(Calendar.MINUTE, picker.getMinute());
                 cal.set(Calendar.SECOND, 0);
                 cal.set(Calendar.MILLISECOND, 0);
+                String dateFormatted=AlarmLab.getTimeString(cal.getTimeInMillis());
+                mTimePicker.setText(dateFormatted);
                 mAlarm.setTime(cal.getTimeInMillis());
             }
         });
