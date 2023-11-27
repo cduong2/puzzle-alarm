@@ -26,6 +26,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -108,6 +109,10 @@ public class AlarmFragment extends Fragment {
         Log.d(TAG, "onCreateView: Fragment view is being created.");
         mTimePicker=v.findViewById(R.id.selectedTime);
         mAlarmTitle = v.findViewById(R.id.alarm_title);
+        if (savedInstanceState != null && savedInstanceState.containsKey(ARG_ALARM_ID)) {
+            UUID alarmId = (UUID) savedInstanceState.getSerializable(ARG_ALARM_ID);
+            mAlarm = AlarmLab.get(getActivity()).getAlarm(alarmId);
+        }
 
         if (mAlarm!=null){
             mAlarmTitle.setText(mAlarm.getTitle());
@@ -177,6 +182,12 @@ public class AlarmFragment extends Fragment {
 
         return v;
     }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(ARG_ALARM_ID, mAlarm.getId());
+    }
+
 
     @SuppressLint("ScheduleExactAlarm")
     private void setAlarm() {
@@ -218,10 +229,9 @@ public class AlarmFragment extends Fragment {
                     // If so, set the calendar day to the next day
                     cal.add(Calendar.DAY_OF_YEAR, 1);
                 }
-
+                mAlarm.setTime(cal.getTimeInMillis());
                 String dateFormatted=AlarmLab.getTimeString(cal.getTimeInMillis());
                 mTimePicker.setText(dateFormatted);
-                mAlarm.setTime(cal.getTimeInMillis());
             }
         });
 

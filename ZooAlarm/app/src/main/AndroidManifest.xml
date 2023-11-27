@@ -36,10 +36,12 @@
         </activity>
         <activity
             android:name=".ui.activities.AlarmListActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name">
         </activity>
         <activity
             android:name=".ui.activities.AlarmCreateActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name">
         </activity>
         <activity
