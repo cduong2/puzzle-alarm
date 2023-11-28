@@ -195,7 +195,11 @@ public class AlarmFragment extends Fragment {
             alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         }
         Intent intent = new Intent(getActivity(), AlarmReceiver.class);
-        pendingIntent=PendingIntent.getBroadcast(getActivity(),0,intent, PendingIntent.FLAG_IMMUTABLE);
+
+        int requestCode = mAlarm.getId().hashCode();     // Use a unique request code based on the alarm's ID
+
+        pendingIntent = PendingIntent.getBroadcast(getActivity(), requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
+
 
         if (alarmManager != null) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, mAlarm.getTime(), pendingIntent);
