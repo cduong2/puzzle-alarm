@@ -1,10 +1,13 @@
 package com.example.zooalarm.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.util.Log;
@@ -52,7 +55,7 @@ public class WeatherActivity extends AppCompatActivity {
 
 //    EditText etCity, etCountry;
     EditText etCity;
-    TextView tvResult;
+    TextView tvResult, tvDate, tvLocation, tvLongitude, tvLatitude, tvMaxTemp, tvMinTemp, tvSunrise, tvSunset, tvPrecipitationSum, tvRainSum, tvSnowfallSum;
     private double latitude = 39.9612; //Columbus
     private double longitude = -82.9988; // Columbus
     private String cityIn = "";
@@ -75,7 +78,13 @@ public class WeatherActivity extends AppCompatActivity {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View v) {
+                        //enable disable button input temporarily
+//                    mBackButton;btnGet;etCity
+                    etCity.setEnabled(false);
+
                     startActivity(new Intent(WeatherActivity.this, MainActivity.class));
+
+                    etCity.setEnabled(true); // turn button back on
                 }
             });
 
@@ -85,7 +94,21 @@ public class WeatherActivity extends AppCompatActivity {
         tvResult = findViewById(R.id.tvResult); // !! Use this!!
         tvResult.setText("Please Enter The Information");
 
-        
+
+        tvDate = findViewById(R.id.tvDate);
+        tvLocation = findViewById(R.id.tvLocation);
+        tvLongitude = findViewById(R.id.tvLongitude);
+        tvLatitude = findViewById(R.id.tvLatitude);
+        tvMaxTemp = findViewById(R.id.tvMaxTemp);
+        tvMinTemp = findViewById(R.id.tvMinTemp);
+        tvSunrise = findViewById(R.id.tvSunrise);
+        tvSunset = findViewById(R.id.tvSunset);
+        tvPrecipitationSum = findViewById(R.id.tvPrecipitationSum);
+        tvRainSum = findViewById(R.id.tvRainSum);
+        tvSnowfallSum = findViewById(R.id.tvSnowfallSum);
+
+
+
     }
     @Override
     public void onStart() {
@@ -117,26 +140,65 @@ public class WeatherActivity extends AppCompatActivity {
         String tempUrl = "";
         String city = etCity.getText().toString().trim();
 //        String country = etCountry.getText().toString().trim();
-        if(city.equals("")){
-            tvResult.setText("City field can not be empty!");
+
+        //check if theres internet connection
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+
+        //weather getting
+        if(city.equals("") || !isConnected){
+            if(city.equals("")){
+                tvResult.setText("City field can not be empty!");
+            }
+            if(!isConnected){
+                tvResult.setText("No internet connection!");
+            }
+            if(city.equals("") && !isConnected){
+                tvResult.setText("No internet connection and city field can't be empty!!");
+            }
         } else {
             tvResult.setText("One second while we get the weather data...");
 
             //location
             try {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+//                List<Address> ads = geocoder.getFromLocationName(city,1); //works, but trying to solve that one error
+//                try{
+//                    List<Address> ads = geocoder.getFromLocationName(city,1);
+//                    cityIn = ads.get(0).getAddressLine(0);
+//                    longitude = ads.get(0).getLongitude();
+//                    latitude = ads.get(0).getLatitude();
+//                } catch (IllegalArgumentException e) {
+//                    List<Address> ads = geocoder.getFromLocationName("Columbus",1);
+//                    cityIn = ads.get(0).getAddressLine(0);
+//                    longitude = ads.get(0).getLongitude();
+//                    latitude = ads.get(0).getLatitude();
+//                    throw new RuntimeException(e);
+//                }
+
+
                 List<Address> ads = geocoder.getFromLocationName(city,1);
-//                List<Address> ads = geocoder.getFromLocationName("Columbus",1);
-//                addresses = geocoder.getFromLocation(latitude, longitude, 1);
-//                tvResult.setText("\nCity: " + ads.get(0).getAddressLine(0));
-//                tvResult.append("\nLongitude: " + ads.get(0).getLongitude());
-//                tvResult.append("\nLatitude: " + ads.get(0).getLatitude());
+                if(ads.isEmpty()){
+                    ads = geocoder.getFromLocationName("Columbus",1);
+                }
                 cityIn = ads.get(0).getAddressLine(0);
                 longitude = ads.get(0).getLongitude();
                 latitude = ads.get(0).getLatitude();
-//                String city1 = ads.get(0).getLocality();
-//                String state1 = ads.get(0).getAdminArea();
-//                String country1 = ads.get(0).getCountryName();
+
+//                List<Address> ads = geocoder.getFromLocationName(city,1); //works, but trying to solve that one error
+////                List<Address> ads = geocoder.getFromLocationName("Columbus",1);
+////                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+////                tvResult.setText("\nCity: " + ads.get(0).getAddressLine(0));
+////                tvResult.append("\nLongitude: " + ads.get(0).getLongitude());
+////                tvResult.append("\nLatitude: " + ads.get(0).getLatitude());
+//                cityIn = ads.get(0).getAddressLine(0);
+//                longitude = ads.get(0).getLongitude();
+//                latitude = ads.get(0).getLatitude();
+////                String city1 = ads.get(0).getLocality();
+////                String state1 = ads.get(0).getAdminArea();
+////                String country1 = ads.get(0).getCountryName();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -151,6 +213,8 @@ public class WeatherActivity extends AppCompatActivity {
             String lat = Double.toString(latitude);
             String lon = Double.toString(longitude);
             url = "https://api.open-meteo.com/v1/gfs?latitude=" + lat + "&longitude=" + lon + "&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=1";
+
+//            URLUtil.isValidUrl(url);  // maybe can catch typo beforehand here w a try catch ...?
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 @Override
@@ -171,6 +235,37 @@ public class WeatherActivity extends AppCompatActivity {
                         tvResult.append("\n\nPrecipitation Sum : " + daily.get("precipitation_sum").toString() + " " + daily_units.get("precipitation_sum").toString());
                         tvResult.append("\nRain Sum : " + daily.get("rain_sum").toString() + " " + daily_units.get("rain_sum").toString());
                         tvResult.append("\nSnowfall Sum : " + daily.get("snowfall_sum").toString() + " " + daily_units.get("snowfall_sum").toString());
+
+                        String strDate = daily.get("time").toString();
+                        String strLocation = (cityIn);
+                        String strLongitude = ("Longitude: \n" + lon);
+                        String strLatitude = ("Latitude: \n" + lat);
+                        String strMaxTemp = (daily.get("temperature_2m_max").toString().substring(1, daily.get("temperature_2m_max").toString().length() - 1) + daily_units.get("temperature_2m_max").toString());
+                        String strMinTemp = (daily.get("temperature_2m_min").toString().substring(1, daily.get("temperature_2m_min").toString().length() - 1) + daily_units.get("temperature_2m_min").toString());
+                        String strSunrise = (daily.get("sunrise").toString());
+                        String strSunset = (daily.get("sunset").toString());
+                        String strPrecipitationSum = (daily.get("precipitation_sum").toString().substring(1, daily.get("precipitation_sum").toString().length() - 1) + " " + daily_units.get("precipitation_sum").toString());
+                        String strRainSum = (daily.get("rain_sum").toString().substring(1, daily.get("rain_sum").toString().length() - 1) + " " + daily_units.get("rain_sum").toString());
+                        String strSnowfallSum = (daily.get("snowfall_sum").toString().substring(1, daily.get("snowfall_sum").toString().length() - 1) + " " + daily_units.get("snowfall_sum").toString());
+
+                        tvDate.setText(strDate.substring(2, strDate.length() - 2));
+//                        tvDate.setText(strDate);
+                        tvLocation.setText(strLocation);
+                        tvLongitude.setText(strLongitude);
+                        tvLatitude.setText(strLatitude);
+                        tvMaxTemp.setText(strMaxTemp);
+                        tvMinTemp.setText(strMinTemp);
+                        tvSunrise.setText(strSunrise.substring(13, strSunrise.length() - 2));
+                        tvSunset.setText(strSunset.substring(13, strSunset.length() - 2));
+                        tvPrecipitationSum.setText(strPrecipitationSum);
+                        tvRainSum.setText(strRainSum);
+                        tvSnowfallSum.setText(strSnowfallSum);
+
+                        tvResult.setText("The Weather");
+                        if(city.equals("Columbus")){
+                            tvResult.setText("Invalid city. Here is Columbus's weather.");
+                        }
+                        tvPrecipitationSum.setText("");
                 }
                 catch (JSONException e) {
                     tvResult.setText("Caught... Failed...");
@@ -189,3 +284,5 @@ public class WeatherActivity extends AppCompatActivity {
         }
     }
 }
+
+//Sources: https://stackoverflow.com/questions/10008108/how-to-get-the-latitude-and-longitude-from-city-name-in-android
