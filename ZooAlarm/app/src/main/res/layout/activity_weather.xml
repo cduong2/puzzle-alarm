@@ -7,9 +7,11 @@
     android:padding="25dp"
     android:background="@drawable/gradient_bg">
 
+<!--    android:screenOrientation="portrait"-->
 
 
-    <RelativeLayout android:id="@+id/mainContainer" android:layout_width="match_parent"
+
+    <ScrollView android:id="@+id/mainContainer" android:layout_width="match_parent"
         android:layout_height="match_parent" android:visibility="visible">
         <LinearLayout android:id="@+id/addressContainer" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="vertical"
@@ -131,105 +133,112 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
+
+<!--            /////////bottom //////////////////-->
+
+
+            <LinearLayout
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:weightSum="3">
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:layout_weight="1"
+                        android:gravity="center" android:padding="8dp"
+                        android:background="#3CF1EBF1">
+                        <ImageView android:layout_width="25dp" android:layout_height="25dp"
+                            android:src="@drawable/sunrise" app:tint="#FFFFFF"/>
+                        <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:textSize="12sp" android:text="Sunrise"/>
+                        <TextView android:id="@+id/tvSunrise" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:text="--"/>
+                    </LinearLayout>
+                    <Space android:layout_width="10dp" android:layout_height="wrap_content"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:layout_weight="1"
+                        android:gravity="center" android:padding="8dp"
+                        android:background="#3CF1EBF1">
+                        <ImageView android:layout_width="25dp" android:layout_height="25dp"
+                            android:src="@drawable/sunset" app:tint="#FFFFFF"/>
+                        <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:textSize="12sp" android:text="Sunset"/>
+                        <TextView android:id="@+id/tvSunset" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:text="--"/>
+                    </LinearLayout>
+                    <Space android:layout_width="10dp" android:layout_height="wrap_content"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:layout_weight="1"
+                        android:gravity="center" android:padding="8dp"
+                        android:background="#3CF1EBF1">
+                        <ImageView android:layout_width="25dp" android:layout_height="25dp"
+                            android:src="@drawable/rain" app:tint="#FFFFFF"/>
+                        <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:textSize="12sp" android:text="Rain Sum"/>
+                        <TextView android:id="@+id/tvRainSum" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:text="--"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Space android:layout_width="wrap_content" android:layout_height="10dp"/>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:weightSum="3">
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:layout_weight="1"
+                        android:gravity="center" android:padding="8dp"
+                        android:background="#3CF1EBF1">
+                        <ImageView android:layout_width="25dp" android:layout_height="25dp"
+                            android:src="@drawable/maxtemp" app:tint="#FFFFFF"/>
+                        <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:textSize="12sp" android:text="Max Temp"/>
+                        <TextView android:id="@+id/tvMaxTemp" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:text="--"/>
+                    </LinearLayout>
+                    <Space android:layout_width="10dp" android:layout_height="wrap_content"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:layout_weight="1"
+                        android:gravity="center" android:padding="8dp"
+                        android:background="#3CF1EBF1">
+                        <ImageView android:layout_width="25dp" android:layout_height="25dp"
+                            android:src="@drawable/mintemp" app:tint="#FFFFFF"/>
+                        <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:textSize="12sp" android:text="Min Temp"/>
+                        <TextView android:id="@+id/tvMinTemp" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:text="--"/>
+                    </LinearLayout>
+                    <Space android:layout_width="10dp" android:layout_height="wrap_content"/>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:layout_weight="1"
+                        android:gravity="center" android:padding="8dp"
+                        android:background="#3CF1EBF1">
+                        <ImageView android:layout_width="25dp" android:layout_height="25dp"
+                            android:src="@drawable/snow" app:tint="#FFFFFF"/>
+                        <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:textSize="12sp" android:text="Snow Fall Sum"/>
+                        <TextView android:id="@+id/tvSnowfallSum" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:text="--"/>
+                    </LinearLayout>
+                </LinearLayout>
         </LinearLayout>
 
 
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:orientation="vertical"
-            android:layout_alignParentBottom="true">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal" android:weightSum="3">
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:layout_weight="1"
-                    android:gravity="center" android:padding="8dp"
-                    android:background="#3CF1EBF1">
-                    <ImageView android:layout_width="25dp" android:layout_height="25dp"
-                        android:src="@drawable/sunrise" app:tint="#FFFFFF"/>
-                    <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textSize="12sp" android:text="Sunrise"/>
-                    <TextView android:id="@+id/tvSunrise" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:textSize="14sp"
-                        android:text="--"/>
-                </LinearLayout>
-                <Space android:layout_width="10dp" android:layout_height="wrap_content"/>
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:layout_weight="1"
-                    android:gravity="center" android:padding="8dp"
-                    android:background="#3CF1EBF1">
-                    <ImageView android:layout_width="25dp" android:layout_height="25dp"
-                        android:src="@drawable/sunset" app:tint="#FFFFFF"/>
-                    <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textSize="12sp" android:text="Sunset"/>
-                    <TextView android:id="@+id/tvSunset" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:textSize="14sp"
-                        android:text="--"/>
-                </LinearLayout>
-                <Space android:layout_width="10dp" android:layout_height="wrap_content"/>
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:layout_weight="1"
-                    android:gravity="center" android:padding="8dp"
-                    android:background="#3CF1EBF1">
-                    <ImageView android:layout_width="25dp" android:layout_height="25dp"
-                        android:src="@drawable/rain" app:tint="#FFFFFF"/>
-                    <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textSize="12sp" android:text="Rain Sum"/>
-                    <TextView android:id="@+id/tvRainSum" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:textSize="14sp"
-                        android:text="--"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <Space android:layout_width="wrap_content" android:layout_height="10dp"/>
-
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal" android:weightSum="3">
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:layout_weight="1"
-                    android:gravity="center" android:padding="8dp"
-                    android:background="#3CF1EBF1">
-                    <ImageView android:layout_width="25dp" android:layout_height="25dp"
-                        android:src="@drawable/maxtemp" app:tint="#FFFFFF"/>
-                    <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textSize="12sp" android:text="Max Temp"/>
-                    <TextView android:id="@+id/tvMaxTemp" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:textSize="14sp"
-                        android:text="--"/>
-                </LinearLayout>
-                <Space android:layout_width="10dp" android:layout_height="wrap_content"/>
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:layout_weight="1"
-                    android:gravity="center" android:padding="8dp"
-                    android:background="#3CF1EBF1">
-                    <ImageView android:layout_width="25dp" android:layout_height="25dp"
-                        android:src="@drawable/mintemp" app:tint="#FFFFFF"/>
-                    <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textSize="12sp" android:text="Min Temp"/>
-                    <TextView android:id="@+id/tvMinTemp" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:textSize="14sp"
-                        android:text="--"/>
-                </LinearLayout>
-                <Space android:layout_width="10dp" android:layout_height="wrap_content"/>
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:layout_weight="1"
-                    android:gravity="center" android:padding="8dp"
-                    android:background="#3CF1EBF1">
-                    <ImageView android:layout_width="25dp" android:layout_height="25dp"
-                        android:src="@drawable/snow" app:tint="#FFFFFF"/>
-                    <Space android:layout_width="wrap_content" android:layout_height="5dp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:textSize="12sp" android:text="Snow Fall Sum"/>
-                    <TextView android:id="@+id/tvSnowfallSum" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:textSize="14sp"
-                        android:text="--"/>
-                </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </ScrollView>
 
 
 <!--    <ProgressBar android:id="@+id/loader" android:layout_width="wrap_content"-->

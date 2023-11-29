@@ -223,18 +223,18 @@ public class WeatherActivity extends AppCompatActivity {
                     try {
                         JSONObject daily = response.getJSONObject("daily");
                         JSONObject daily_units = response.getJSONObject("daily_units");
-                        tvResult.setText("The Weather:\n");
-                        tvResult.append("\nDate: " + daily.get("time").toString());
-                        tvResult.append("\nLocation: " + cityIn);//from Location
-                        tvResult.append("\nLongitude, Latitude: " + lon + ", " + lat);
-//                        tvResult.append("\nTime Zone: " + response.getString("timezone") + " (" + response.getString("timezone_abbreviation") + ")");
-                        tvResult.append("\n\nMax Temp: " + daily.get("temperature_2m_max").toString() + daily_units.get("temperature_2m_max").toString());
-                        tvResult.append("\nMin Temp: " + daily.get("temperature_2m_min").toString() + daily_units.get("temperature_2m_min").toString());
-                        tvResult.append("\n\nSunrise: " + daily.get("sunrise").toString());
-                        tvResult.append("\nSunset: " + daily.get("sunset").toString());
-                        tvResult.append("\n\nPrecipitation Sum : " + daily.get("precipitation_sum").toString() + " " + daily_units.get("precipitation_sum").toString());
-                        tvResult.append("\nRain Sum : " + daily.get("rain_sum").toString() + " " + daily_units.get("rain_sum").toString());
-                        tvResult.append("\nSnowfall Sum : " + daily.get("snowfall_sum").toString() + " " + daily_units.get("snowfall_sum").toString());
+//                        tvResult.setText("The Weather:\n");
+//                        tvResult.append("\nDate: " + daily.get("time").toString());
+//                        tvResult.append("\nLocation: " + cityIn);//from Location
+//                        tvResult.append("\nLongitude, Latitude: " + lon + ", " + lat);
+////                        tvResult.append("\nTime Zone: " + response.getString("timezone") + " (" + response.getString("timezone_abbreviation") + ")");
+//                        tvResult.append("\n\nMax Temp: " + daily.get("temperature_2m_max").toString() + daily_units.get("temperature_2m_max").toString());
+//                        tvResult.append("\nMin Temp: " + daily.get("temperature_2m_min").toString() + daily_units.get("temperature_2m_min").toString());
+//                        tvResult.append("\n\nSunrise: " + daily.get("sunrise").toString());
+//                        tvResult.append("\nSunset: " + daily.get("sunset").toString());
+//                        tvResult.append("\n\nPrecipitation Sum : " + daily.get("precipitation_sum").toString() + " " + daily_units.get("precipitation_sum").toString());
+//                        tvResult.append("\nRain Sum : " + daily.get("rain_sum").toString() + " " + daily_units.get("rain_sum").toString());
+//                        tvResult.append("\nSnowfall Sum : " + daily.get("snowfall_sum").toString() + " " + daily_units.get("snowfall_sum").toString());
 
                         String strDate = daily.get("time").toString();
                         String strLocation = (cityIn);
@@ -282,6 +282,43 @@ public class WeatherActivity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(jsonObjectRequest);
         }
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+//        outState.putString("preservationKey", textView.getText().toString());
+//        super.onSaveInstanceState(outState);
+
+        outState.putString("tvDate", tvDate.getText().toString());
+        outState.putString("tvLocation", tvLocation.getText().toString());
+        outState.putString("tvLongitude", tvLongitude.getText().toString());
+        outState.putString("tvLatitude", tvLatitude.getText().toString());
+        outState.putString("tvMaxTemp", tvMaxTemp.getText().toString());
+        outState.putString("tvMinTemp", tvMinTemp.getText().toString());
+        outState.putString("tvSunrise", tvSunrise.getText().toString());
+        outState.putString("tvSunset", tvSunset.getText().toString());
+        outState.putString("tvRainSum", tvRainSum.getText().toString());
+        outState.putString("tvSnowfallSum", tvSnowfallSum.getText().toString());
+        outState.putString("tvResult", tvResult.getText().toString());
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+
+        tvDate.setText(savedInstanceState.getString("tvDate"));
+        tvLocation.setText(savedInstanceState.getString("tvLocation"));
+        tvLongitude.setText(savedInstanceState.getString("tvLongitude"));
+        tvLatitude.setText(savedInstanceState.getString("tvLatitude"));
+        tvMaxTemp.setText(savedInstanceState.getString("tvMaxTemp"));
+        tvMinTemp.setText(savedInstanceState.getString("tvMinTemp"));
+        tvSunrise.setText(savedInstanceState.getString("tvSunrise"));
+        tvSunset.setText(savedInstanceState.getString("tvSunset"));
+        tvRainSum.setText(savedInstanceState.getString("tvRainSum"));
+        tvSnowfallSum.setText(savedInstanceState.getString("tvSnowfallSum"));
+        tvResult.setText(savedInstanceState.getString("tvResult"));
     }
 }
 
